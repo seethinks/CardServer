@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cn">
+    <meta charset="UTF-8">
+    <title>bs01</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css"/>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script src="/javascripts/jquery-1.7.1.min.js"></script>
+</head>
+<body ng-app="">
+
+<div id="yourApp" ng-app="app01" ng-controller="app01Ctrl" ng-cloak>
+    1:<input type="text" ng-model="app01Var1">
+    2:<input type="text" ng-model="app01Var2"/>
+    t:{{(app01Var1|uppercase)+(app01Var2|lowercase)}}
+    <br>
+    url:{{myUrl}}
+    <br>
+    baidu:{{baiduUrl}}
+    <button class="btn-danger" ng-click="warn()">warn</button>
+</div>
+
+<div id="yourApp1" ng-app="myApp" ng-init="firstname='john';price01=22;price02=33;arr=[1,2]" ng-controller="myControl" ng-cloak>
+    <p>姓名：<input type="text" ng-model="name"></p>
+    <h1>Hello {{name}}</h1>
+    <div ng-include="'test01.html'" class="container"></div>
+
+    <div>
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>籍贯</th>
+                <th>性别</th>
+                <th>身高</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{name}}</td>
+                <td>11</td>
+                <td>浙江</td>
+                <td>不详</td>
+                <td>122cm</td>
+            </tr>
+            <tr>
+                <td ng-bind="firstname">李四</td>
+                <td>{{price01+price02}}</td>
+                <td>浙江</td>
+                <td>不详</td>
+                <td>182{{10+10}}cm</td>
+            </tr>
+            <tr>
+                <td ng-bind="firstname"></td>
+                <td><span ng-repeat="x in arr">{{x+5}}</span></td>
+                <td>浙江</td>
+                <td>不详</td>
+                <td>182{{10+10}}cm</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <input type="text" ng-model="user01"/><br>
+    <input type="text" ng-model="user02"/><br>
+    <br>
+
+    <form action="" name="myForm" novalidate>
+        <input type="email" ng-model="email" placeholder="请输入你的邮箱地址" name="myEmail" required/>
+        <span ng-show="myForm.myEmail.$error.email">不是一个合法的邮箱地址</span>
+        状态：
+        {{myForm.myEmail.$valid}}
+        {{myForm.myEmail.$dirty}}
+        {{myForm.myEmail.$touched}}
+    </form>
+    <h1>你输入的地址是：{{email}}</h1>
+    <br>
+    姓名:{{user01+user02}}<br>
+    <test1-Directive></test1-Directive>
+
+    <a href="/users">to users</a>
+</div>
+
+<script>
+    var app = angular.module('myApp',[]);
+    app.controller('myControl',function($scope){
+        $scope.user01 = "dj";
+        $scope.user02="wolf";
+        $scope.email = "djwolf@21cn.com";
+    });
+    app.directive("test1Directive",function(){
+        return {
+            template : 555
+        };
+    });
+
+    var app01 = angular.module('app01',[]);
+    app01.controller("app01Ctrl",function($scope,$location,$http,$timeout,$interval){
+        $scope.app01Var1 = "see";
+        $scope.app01Var2 = "thinks";
+        $scope.myUrl = $location.absUrl();
+        $http.get("test01.html").then(function(response)
+        {
+            $scope.baiduUrl = response.data;
+        });
+        $timeout(function(){
+            $scope.baiduUrl = "changed this area word"
+        },2000);
+        $interval(function(){
+            $scope.baiduUrl = new Date().toLocaleTimeString();
+        },3000);
+        $scope.warn =function(){
+            //alert("这是一个警告");
+            
+        };
+    });
+    angular.bootstrap(document.getElementById("yourApp"), ['app01']);
+    angular.bootstrap(document.getElementById("yourApp1"), ['myApp']);
+</script>
+
+<button class="btn">11111111</button>
+
+</body>
+</html>
