@@ -66,6 +66,7 @@ class ByteArrayMsgByProtobuf extends ByteArrayMsg {
             msg.readBytes(bytes, 0, len);
 
             var obj:any = {};
+            obj.msgId = msgID;
             obj.key = this.getMsgKey(msgID);
             App.DebugUtils.start("Protobuf Decode");
             obj.body = this.getMsgClass(obj.key).decode(bytes.buffer);

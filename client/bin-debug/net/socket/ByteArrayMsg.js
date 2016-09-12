@@ -17,7 +17,7 @@ var ByteArrayMsg = (function () {
         socket.readBytes(this._msgBuffer);
         var obj = this.decode(this._msgBuffer);
         if (obj) {
-            App.MessageCenter.dispatch(obj.key, obj.body);
+            App.MessageCenter.dispatch(obj.msgId, obj.body);
         }
         //TODO double bytearray clear
         if (this._msgBuffer.bytesAvailable == 0) {

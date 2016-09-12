@@ -1,19 +1,24 @@
 /**
  * Created by G510 on 2016/9/9.
+ * 管理websocket数据收发
  */
 exports = module.exports = function () {
     var wsServer = {};
+    var wsocket;
+    var byteBufferClass = require('bytebuffer');
+    var stNetEvent = require("../events/STNetEvent")();
 
     wsServer.setup = function()
     {
-        var stNetEvent = require("../events/STNetEvent")();
         var port = process.env.PORT || 3008;
         var ws = require('ws');
-        var wsocket = new ws.Server({port: port}, function() {
+        wsocket = new ws.Server({port: port}, function() {
             console.info('Server listening on port %d', port);
         });
 
-        wsocket.on('connection', function(s) {
+        wsocket.on('connection', function(s)
+        {
+            wsocket.s = s;
             s.on("message",function(msg){
                 console.log(msg)
                 var msgId = msg.readInt16BE();
@@ -26,24 +31,32 @@ exports = module.exports = function () {
                 console.log("a user disconnected")
             });
         });
-
-        stNetEvent.on("10001",function(data){
-            console.log("data:"+data.accid)
-            console.log("data:"+data.tstamp)
-            console.log("data:"+data.ticket)
-        })
-        stNetEvent.on("10005",function(data){
-        })
     }
 
-    wsServer.connect = function()
+    /**
+     * 发送数据到客户端
+     * @param msgId 消息头
+     * @param data  二进制数据
+     */
+    wsServer.send = function(msgId,data)
     {
-
+        if(!wsocket.s) return;
+        var bytes = new byteBufferClass().flip();
+        bytes.writeUint16(msgId);
+        bytes.writeUint16(data.length);
+        bytes.append(data)
+        bytes.flip();
+        var sendData = bytes.toArrayBuffer();
+        console.log("Send Bytes Data ---> "+bytes)
+        wsocket.s.send(sendData, { binary: true });
     }
 
+    /**
+     * 主动关闭ws服务器
+     */
     wsServer.close = function()
     {
-
+        wsocket.s.close();
     }
     return wsServer;
 }

@@ -150,8 +150,14 @@ var Main = (function (_super) {
         App.MessageCenter.addListener(SocketConst.SOCKET_NOCONNECT, function () {
             Log.trace("服务器连接不上");
         }, this);
-        App.MessageCenter.addListener("10001", function (msg) {
+        App.MessageCenter.addListener("10005", function (msg) {
             Log.trace("收到服务器消息:", msg);
+            if (msg.flag == 1) {
+                Log.trace("yes");
+            }
+            else {
+                Log.trace("no");
+            }
         }, this);
     };
     return Main;

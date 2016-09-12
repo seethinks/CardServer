@@ -62,6 +62,7 @@ var ByteArrayMsgByProtobuf = (function (_super) {
             var bytes = new egret.ByteArray();
             msg.readBytes(bytes, 0, len);
             var obj = {};
+            obj.msgId = msgID;
             obj.key = this.getMsgKey(msgID);
             App.DebugUtils.start("Protobuf Decode");
             obj.body = this.getMsgClass(obj.key).decode(bytes.buffer);

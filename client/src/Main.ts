@@ -154,6 +154,7 @@ class Main extends egret.DisplayObjectContainer {
                 "ticket": "yangsong"
             };
             //msg.body = user_login;
+
             App.Socket.send(msg);
         }
 
@@ -175,8 +176,15 @@ class Main extends egret.DisplayObjectContainer {
         App.MessageCenter.addListener(SocketConst.SOCKET_NOCONNECT, ()=>{
             Log.trace("服务器连接不上");
         }, this);
-        App.MessageCenter.addListener("10001", function(msg):void{
+        App.MessageCenter.addListener("10005", function(msg):void{
             Log.trace("收到服务器消息:", msg);
+            if(msg.flag == 1)
+            {
+                Log.trace("yes");
+            }else
+            {
+                Log.trace("no");
+            }
         }, this);
     }
 

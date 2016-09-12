@@ -10,7 +10,7 @@ exports = module.exports = function () {
         var fs= require('fs');
         var jsonObj;
 
-        fs.readFile("./proto/msgData.json",function(err,data) {
+        fs.readFile("../CardServer/server/proto/msgData.json",function(err,data) {
             if (err) {
                 console.log(err)
                 throw err;
@@ -18,7 +18,7 @@ exports = module.exports = function () {
             jsonObj = JSON.parse(data);
 
             var ProtoBuf = require("protobufjs");
-            protoCtrl.protoRoot = ProtoBuf.loadProtoFile("./proto/msgData.proto");
+            protoCtrl.protoRoot = ProtoBuf.loadProtoFile("../CardServer/server/proto/msgData.proto");
             protoCtrl.protoJson = jsonObj;
         });
     }
