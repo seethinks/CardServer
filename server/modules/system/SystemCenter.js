@@ -47,9 +47,8 @@ exports = module.exports = function () {
 
 
 //        systemCenter.nete.on("10001",function(data){
-//            console.log("data:"+data.accid)
-//            console.log("data:"+data.tstamp)
-//            console.log("data:"+data.ticket)
+//            console.log("data:"+data.account)
+//            console.log("data:"+data.pass)
 //        })
 //
 //        setTimeout(function(){

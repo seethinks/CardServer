@@ -102,32 +102,33 @@ var Main = (function (_super) {
      */
     p.createGameScene = function () {
         App.Init();
-        this.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
-            var msg = {};
-            msg.key = "user_login_s2c";
-            msg.body = {
-                "flag": 1
-            };
-            //msg.body = user_login;
-            App.Socket.send(msg);
-        }, this);
-        var message = dcodeIO.ProtoBuf.loadProto(RES.getRes("msgData_proto"));
-        //创建user_login_class
-        var user_login_class = message.build("user_login_c2s");
-        //创建一条消息
-        var user_login = new user_login_class({
-            "accid": 888,
-            "tstamp": 999,
-            "ticket": "yangsong"
-        });
+        //        this.addEventListener(egret.TouchEvent.TOUCH_TAP,function(){
+        //            var msg:any = {};
+        //            msg.key = "user_login_s2c";
+        //            msg.body = {
+        //                "flag" : 1
+        //            };
+        //            //msg.body = user_login;
+        //            App.Socket.send(msg);
+        //
+        //        },this)
+        //        var message = dcodeIO.ProtoBuf.loadProto(RES.getRes("msgData_proto"));
+        //
+        //        //创建user_login_class
+        //        var u_login_class = message.build("u_login_c2s");
+        //
+        //        //创建一条消息
+        //        var user_login = new u_login_class({
+        //            "account" : "seethinks",
+        //            "pass" : "123123123"
+        //        });
         //发送一条消息到服务器
         function send() {
             var msg = {};
-            msg.key = "user_login_c2s";
+            msg.key = "u_login_c2s";
             msg.body = {
-                "accid": 888,
-                "tstamp": 999,
-                "ticket": "yangsong"
+                "account": "seethinks",
+                "pass": "123123123"
             };
             //msg.body = user_login;
             App.Socket.send(msg);
