@@ -1,35 +1,35 @@
 {
-    "native": {
-        "path_ignore": []
-    },
-    "publish": {
-        "web": 0,
-        "native": 1,
-        "path": "bin-release"
-    },
-    "egret_version": "3.1.6",
-    "modules": [
-        {
-            "name": "egret"
-        },
-        {
-            "name": "game"
-        },
-        {
-            "name": "tween"
-        },
-        {
-            "name": "res"
-        },
-        {
-            "name": "eui"
-        },
-        {
-            "name": "socket"
-        },
-        {
-            "name": "protobuf",
-            "path": "/flibs/protobuf"
-        }
-    ]
+	"native": {
+		"path_ignore": []
+	},
+	"publish": {
+		"web": 0,
+		"native": 1,
+		"path": "bin-release"
+	},
+	"egret_version": "3.1.8",
+	"modules": [
+		{
+			"name": "egret"
+		},
+		{
+			"name": "game"
+		},
+		{
+			"name": "tween"
+		},
+		{
+			"name": "res"
+		},
+		{
+			"name": "eui"
+		},
+		{
+			"name": "socket"
+		},
+		{
+			"name": "protobuf",
+			"path": "flibs/protobuf"
+		}
+	]
 }

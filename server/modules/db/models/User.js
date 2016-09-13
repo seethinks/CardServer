@@ -3,6 +3,6 @@
  */
 var mongoose = require('mongoose');
 var userSchema = require('../schemas/SMUser');
-var Users = mongoose.model('user', userSchema);
+var User = mongoose.model('users', userSchema);
 
-module.exports = Users;
+exports.User = User;
