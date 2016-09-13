@@ -28,7 +28,7 @@ exports = module.exports = function () {
                 {
                     // 收到数据库连接成功才会进行下一步
                     systemCenter.dbe.on(sysCtr.dbe.EN_CONNECTED,function(){
-                        callback(null, 'step 2 --> connect mongodb');
+                        callback(null, 'step 2 --> connect mongodb success');
                     });
                     dbm.setup();
                     systemCenter.dbm = dbm;
@@ -37,7 +37,7 @@ exports = module.exports = function () {
                 {
                     wss.setup();
                     systemCenter.wss = wss;
-                    callback(null, 'step 3 --> start ws server');
+                    callback(null, 'step 3 --> starting ws server');
                 }
             ],
             function(err, results){
