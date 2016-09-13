@@ -31,8 +31,7 @@ exports = module.exports = function () {
                 }
             );
             wss.send(10005,sendProtoData.encode().toBuffer());
-        },5000)
-
+        },4800)
     }
 
     return systemCenter;
