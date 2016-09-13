@@ -1,2 +1,2 @@
 # CardServer
-Card Server with nodejs
+Card Server with nodejs & mongodb & protobuf
