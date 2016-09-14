@@ -9,9 +9,12 @@ var protoCtrl = require("../system/ProtoCtrl")();
 var dbm = require("../db/DbManager")();
 var dbEvent = require("../events/DbEvent")();
 var netEvent = require("../events/NetEvent")();
-var login = require("../system/Login")();
-var logout = require("../system/Logout")();
-var reg = require("../system/Reg")();
+var loginCtrl = require("../system/LoginCtrl")();
+var logoutCtrl = require("../system/LogoutCtrl")();
+var regCtrl = require("../system/RegCtrl")();
+var zoneCtrl = require("../system/ZoneCtrl")();
+var roomCtrl = require("../system/RoomCtrl")();
+
 
 exports = module.exports = function () {
     var systemCenter = {};
@@ -46,10 +49,13 @@ exports = module.exports = function () {
             }
         );
 
-        // 注册server事件
-        reg.addEvent();
-        login.addEvent();
-        logout.addEvent();
+        // 各子模块启动
+        regCtrl.setup();
+        loginCtrl.setup();
+        logoutCtrl.setup();
+
+        zoneCtrl.setup();
+        roomCtrl.setup();
     }
     return systemCenter;
 }

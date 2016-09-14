@@ -3,7 +3,12 @@
  */
 exports = module.exports = function () {
     var logout = {};
-    logout.addEvent = function ()
+    logout.setup = function ()
+    {
+
+    }
+
+    logout.addEvent = function()
     {
         sysCtr.nete.on("10020", function (data) {
             var user = userModel.User;
@@ -11,5 +16,6 @@ exports = module.exports = function () {
             var sendProtoData;
         })
     }
+
     return logout;
 }

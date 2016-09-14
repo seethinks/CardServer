@@ -6,7 +6,12 @@ var userModel = require("../db/models/User");
 exports = module.exports = function () {
     var login = {};
 
-    login.addEvent = function () {
+    login.setup = function () {
+        login.addEvent();
+    }
+
+    login.addEvent = function()
+    {
         sysCtr.nete.on("10000", function (data) {
             var user = userModel.User;
             var queryDoc = {account: data.account};
@@ -33,6 +38,7 @@ exports = module.exports = function () {
             })
         })
     }
+
     return login;
 }
 
