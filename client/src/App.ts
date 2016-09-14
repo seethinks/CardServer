@@ -236,6 +236,14 @@ class App {
         return App._notificationCenter;
     }
 
+    /**
+     * DragonBones工厂类
+     * @returns {any}
+     * @constructor
+     */
+    public static get DragonBonesFactory():DragonBonesFactory {
+        return DragonBonesFactory.getInstance();
+    }
 
     /**
      * 分帧处理类

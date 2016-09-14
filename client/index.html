@@ -29,6 +29,7 @@
 	<script egret="lib" src="libs/modules/tween/tween.js" src-release="libs/modules/tween/tween.min.js"></script>
 	<script egret="lib" src="libs/modules/res/res.js" src-release="libs/modules/res/res.min.js"></script>
 	<script egret="lib" src="libs/modules/eui/eui.js" src-release="libs/modules/eui/eui.min.js"></script>
+	<script egret="lib" src="libs/modules/dragonBones/dragonBones.js" src-release="libs/modules/dragonBones/dragonBones.min.js"></script>
 	<script egret="lib" src="libs/modules/socket/socket.js" src-release="libs/modules/socket/socket.min.js"></script>
 	<script egret="lib" src="libs/modules/protobuf/protobuf.js" src-release="libs/modules/protobuf/protobuf.min.js"></script>
 	<!--modules_files_end-->
@@ -39,28 +40,54 @@
 
     <!--这个标签会被替换为项目中所有的 javascript 文件。删除 game_files 标签后，项目文件加载列表将不会变化，请谨慎操作！-->
     <!--game_files_start-->
-	<script egret="game" src="bin-debug/App.js"></script>
-	<script egret="game" src="bin-debug/LoadingUI.js"></script>
-	<script egret="game" src="bin-debug/Main.js"></script>
 	<script egret="game" src="bin-debug/adapter/AssetAdapter.js"></script>
 	<script egret="game" src="bin-debug/adapter/MergeJsonAnalyzer.js"></script>
 	<script egret="game" src="bin-debug/adapter/ThemeAdapter.js"></script>
+	<script egret="game" src="bin-debug/App.js"></script>
 	<script egret="game" src="bin-debug/base/BaseClass.js"></script>
 	<script egret="game" src="bin-debug/consts/Keyboard.js"></script>
 	<script egret="game" src="bin-debug/display/BitmapNumber.js"></script>
 	<script egret="game" src="bin-debug/display/HotspotBitmap.js"></script>
+	<script egret="game" src="bin-debug/dragonBones/DragonBonesArmature.js"></script>
+	<script egret="game" src="bin-debug/dragonBones/DragonBonesArmatureContainer.js"></script>
+	<script egret="game" src="bin-debug/dragonBones/DragonBonesFactory.js"></script>
+	<script egret="game" src="bin-debug/dragonBones/EgretTextureAtlasMore.js"></script>
+	<script egret="game" src="bin-debug/LoadingUI.js"></script>
+	<script egret="game" src="bin-debug/Main.js"></script>
 	<script egret="game" src="bin-debug/module/guide/GuideMaskBackgroud.js"></script>
 	<script egret="game" src="bin-debug/module/guide/GuideUtils.js"></script>
 	<script egret="game" src="bin-debug/module/guide/GuideView.js"></script>
 	<script egret="game" src="bin-debug/module/loading/EasyLoading.js"></script>
-	<script egret="game" src="bin-debug/mvc/ControllerManager.js"></script>
-	<script egret="game" src="bin-debug/mvc/ViewManager.js"></script>
 	<script egret="game" src="bin-debug/mvc/controller/BaseController.js"></script>
+	<script egret="game" src="bin-debug/mvc/ControllerManager.js"></script>
 	<script egret="game" src="bin-debug/mvc/model/BaseModel.js"></script>
 	<script egret="game" src="bin-debug/mvc/proxy/BaseProxy.js"></script>
 	<script egret="game" src="bin-debug/mvc/view/BaseEuiView.js"></script>
 	<script egret="game" src="bin-debug/mvc/view/BaseSpriteView.js"></script>
 	<script egret="game" src="bin-debug/mvc/view/IBaseView.js"></script>
+	<script egret="game" src="bin-debug/mvc/ViewManager.js"></script>
+	<script egret="game" src="bin-debug/mylogic/CardMain.js"></script>
+	<script egret="game" src="bin-debug/mylogic/consts/ControllerConst.js"></script>
+	<script egret="game" src="bin-debug/mylogic/consts/HttpConst.js"></script>
+	<script egret="game" src="bin-debug/mylogic/consts/SceneConsts.js"></script>
+	<script egret="game" src="bin-debug/mylogic/consts/ViewConst.js"></script>
+	<script egret="game" src="bin-debug/mylogic/GameManager.js"></script>
+	<script egret="game" src="bin-debug/mylogic/module/loading/LoadingConst.js"></script>
+	<script egret="game" src="bin-debug/mylogic/module/loading/LoadingController.js"></script>
+	<script egret="game" src="bin-debug/mylogic/module/loading/LoadingView.js"></script>
+	<script egret="game" src="bin-debug/mylogic/module/Login/LoginController.js"></script>
+	<script egret="game" src="bin-debug/mylogic/module/Login/LoginView.js"></script>
+	<script egret="game" src="bin-debug/mylogic/module/Reg/RegController.js"></script>
+	<script egret="game" src="bin-debug/mylogic/module/Reg/RegView.js"></script>
+	<script egret="game" src="bin-debug/scene/base/BaseScene.js"></script>
+	<script egret="game" src="bin-debug/mylogic/scene/GameScene.js"></script>
+	<script egret="game" src="bin-debug/scene/base/BaseSpriteLayer.js"></script>
+	<script egret="game" src="bin-debug/scene/base/BaseEuiLayer.js"></script>
+	<script egret="game" src="bin-debug/mylogic/scene/LayerManager.js"></script>
+	<script egret="game" src="bin-debug/mylogic/scene/LoadingScene.js"></script>
+	<script egret="game" src="bin-debug/mylogic/scene/LoginScene.js"></script>
+	<script egret="game" src="bin-debug/mylogic/scene/RegScene.js"></script>
+	<script egret="game" src="bin-debug/mylogic/scene/UIScene.js"></script>
 	<script egret="game" src="bin-debug/net/http/DataCache.js"></script>
 	<script egret="game" src="bin-debug/net/http/DataUpdate.js"></script>
 	<script egret="game" src="bin-debug/net/http/Http.js"></script>
@@ -71,23 +98,20 @@
 	<script egret="game" src="bin-debug/net/socket/SocketConst.js"></script>
 	<script egret="game" src="bin-debug/net/socket/UTFMsg.js"></script>
 	<script egret="game" src="bin-debug/net/socket/UTFMsgByJson.js"></script>
-	<script egret="game" src="bin-debug/scene/base/BaseEuiLayer.js"></script>
-	<script egret="game" src="bin-debug/scene/base/BaseScene.js"></script>
-	<script egret="game" src="bin-debug/scene/base/BaseSpriteLayer.js"></script>
 	<script egret="game" src="bin-debug/scene/manager/SceneManager.js"></script>
 	<script egret="game" src="bin-debug/sound/BaseSound.js"></script>
 	<script egret="game" src="bin-debug/sound/SoundBg.js"></script>
 	<script egret="game" src="bin-debug/sound/SoundEffects.js"></script>
 	<script egret="game" src="bin-debug/sound/SoundManager.js"></script>
-	<script egret="game" src="bin-debug/starlingswf/Swf.js"></script>
-	<script egret="game" src="bin-debug/starlingswf/SwfAssetManager.js"></script>
-	<script egret="game" src="bin-debug/starlingswf/SwfUpdateManager.js"></script>
 	<script egret="game" src="bin-debug/starlingswf/display/ISwfAnimation.js"></script>
 	<script egret="game" src="bin-debug/starlingswf/display/SwfSprite.js"></script>
 	<script egret="game" src="bin-debug/starlingswf/display/SwfMovieClip.js"></script>
 	<script egret="game" src="bin-debug/starlingswf/game/StarlingSwfFactory.js"></script>
 	<script egret="game" src="bin-debug/starlingswf/game/StarlingSwfMovieClip.js"></script>
 	<script egret="game" src="bin-debug/starlingswf/game/StarlingSwfUtils.js"></script>
+	<script egret="game" src="bin-debug/starlingswf/Swf.js"></script>
+	<script egret="game" src="bin-debug/starlingswf/SwfAssetManager.js"></script>
+	<script egret="game" src="bin-debug/starlingswf/SwfUpdateManager.js"></script>
 	<script egret="game" src="bin-debug/utils/AllAsyncExecutor.js"></script>
 	<script egret="game" src="bin-debug/utils/AnchorUtil.js"></script>
 	<script egret="game" src="bin-debug/utils/ArrayUtils.js"></script>
@@ -106,14 +130,15 @@
 	<script egret="game" src="bin-debug/utils/LocationProperty.js"></script>
 	<script egret="game" src="bin-debug/utils/Log.js"></script>
 	<script egret="game" src="bin-debug/utils/MathUtils.js"></script>
+	<script egret="game" src="bin-debug/utils/md5.js"></script>
 	<script egret="game" src="bin-debug/utils/MessageCenter.js"></script>
 	<script egret="game" src="bin-debug/utils/ObjectPool.js"></script>
 	<script egret="game" src="bin-debug/utils/Percent.js"></script>
 	<script egret="game" src="bin-debug/utils/QueueExecutor.js"></script>
 	<script egret="game" src="bin-debug/utils/RandomUtils.js"></script>
 	<script egret="game" src="bin-debug/utils/RenderTextureManager.js"></script>
-	<script egret="game" src="bin-debug/utils/ResVersionManager.js"></script>
 	<script egret="game" src="bin-debug/utils/ResourceUtils.js"></script>
+	<script egret="game" src="bin-debug/utils/ResVersionManager.js"></script>
 	<script egret="game" src="bin-debug/utils/RockerUtils.js"></script>
 	<script egret="game" src="bin-debug/utils/ShockUtils.js"></script>
 	<script egret="game" src="bin-debug/utils/StageUtils.js"></script>
@@ -121,7 +146,6 @@
 	<script egret="game" src="bin-debug/utils/StringUtils.js"></script>
 	<script egret="game" src="bin-debug/utils/TextFlowMaker.js"></script>
 	<script egret="game" src="bin-debug/utils/TimerManager.js"></script>
-	<script egret="game" src="bin-debug/utils/md5.js"></script>
 	<!--game_files_end-->
 </head>
 <body>

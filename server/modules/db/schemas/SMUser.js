@@ -5,10 +5,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var users = new Schema({
-    id:Number,
-    account:String,
+    account:{type: String, index: true},
     password:String,
     nickName:String,
     money:Number,
-    create_date:{type:Date,default:Date.now}
+    create_date:{type:Date,default:Date.now()}
 });
+
+module.exports = users;

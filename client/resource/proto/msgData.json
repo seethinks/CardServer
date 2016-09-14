@@ -1,6 +1,8 @@
 {
-    "10001" : "u_login_c2s",
+    "10000" : "u_login_c2s",
     "10005" : "u_login_s2c",
     "10010" : "u_reg_c2s",
-    "10015" : "u_reg_s2c"
+    "10015" : "u_reg_s2c",
+    "10020" : "u_logout_c2s",
+    "10025" : "u_logout_s2c"
 }

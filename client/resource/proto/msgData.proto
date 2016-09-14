@@ -1,13 +1,13 @@
 message Person {
-    required string id = 1;
-    required string account = 2;
-	required string name = 3;
-	required string nName = 4;          // 昵称
-	required int32  money = 5;
+    optional string id = 1;
+    optional string account = 2;
+	optional string name = 3;
+	optional string nName = 4;          // 昵称
+	optional int32  money = 5;
 }
 
 
-//10001
+//10000
 message u_login_c2s {
 	required string account = 1;		        //账号名
 	required string pass = 2;		    //密码
@@ -16,6 +16,7 @@ message u_login_c2s {
 //10005
 message u_login_s2c {
 	required int32 flag = 1;		    //0:验证错误 1:登录成功，2:需要注册
+    required Person person = 2;
 }
 
 //10010
@@ -26,5 +27,15 @@ message u_reg_c2s {
 
 //10015
 message u_reg_s2c {
+	required int32 flag = 1;		    //注册返回
+}
+
+//10020
+message u_logout_c2s {
+	required string id = 1;		        //账号名
+}
+
+//10025
+message u_logout_s2c {
 	required int32 flag = 1;		    //注册返回
 }

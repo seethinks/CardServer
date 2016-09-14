@@ -33,7 +33,7 @@ class Main extends egret.DisplayObjectContainer {
      * 加载进度界面
      * Process interface loading
      */
-    private loadingView:LoadingUI;
+        //private loadingView:LoadingUI;
 
     public constructor() {
         super();
@@ -41,152 +41,87 @@ class Main extends egret.DisplayObjectContainer {
     }
 
     private onAddToStage(event:egret.Event) {
+        this.removeEventListener(egret.Event.ADDED_TO_STAGE,this.onAddToStage,this);
+
+        //注入自定义的素材解析器
+        this.stage.registerImplementation("eui.IAssetAdapter",new AssetAdapter());
+        this.stage.registerImplementation("eui.IThemeAdapter",new ThemeAdapter());
         //设置加载进度界面
         //Config to load process interface
-        this.loadingView = new LoadingUI();
-        this.stage.addChild(this.loadingView);
+//        this.loadingView = new LoadingUI();
+//        this.stage.addChild(this.loadingView);
 
         //初始化Resource资源加载库
         //initiate Resource loading library
-        RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
-        RES.loadConfig("resource/default.res.json", "resource/");
+
+        if(App.DeviceUtils.IsPC){
+            App.StageUtils.setScaleMode(egret.StageScaleMode.SHOW_ALL);
+        }
+
+        //初始化
+        this.initScene();
+        this.initModule();
+        //设置加载进度界面
+        App.SceneManager.runScene(SceneConsts.LOADING);
+
+        //加载资源版本号
+        if(false){
+            App.ResVersionManager.loadConfig("resource/resource_version.json", this.loadResVersionComplate, this);
+        }else{
+            this.loadResVersionComplate();
+        }
+    }
+
+    private loadResVersionComplate():void{
+        //初始化Resource资源加载库
+        App.ResourceUtils.addConfig("resource/default.res.json", "resource/");
+        App.ResourceUtils.addConfig("resource/resource_core.json", "resource/");
+        App.ResourceUtils.addConfig("resource/resource_ui.json", "resource/");
+        App.ResourceUtils.addConfig("resource/resource_battle.json", "resource/");
+        App.ResourceUtils.loadConfig(this.onConfigComplete, this);
     }
 
     /**
      * 配置文件加载完成,开始预加载preload资源组。
-     * configuration file loading is completed, start to pre-load the preload resource group
      */
-    private onConfigComplete(event:RES.ResourceEvent):void {
-        RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
-        RES.addEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
-        RES.loadGroup("preload");
+    private onConfigComplete():void{
+        //加载皮肤主题配置文件,可以手动修改这个文件。替换默认皮肤。
+        var theme = new eui.Theme("resource/default.thm.json",this.stage);
+        theme.addEventListener(eui.UIEvent.COMPLETE,this.onThemeLoadComplete,this);
     }
 
     /**
-     * preload资源组加载完成
-     * Preload resource group is loaded
+     * 主题文件加载完成
      */
-    private onResourceLoadComplete(event:RES.ResourceEvent):void {
-        if (event.groupName == "preload") {
-            this.stage.removeChild(this.loadingView);
-            RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
-            RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
-            RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
-            RES.removeEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
-            this.createGameScene();
-        }
+    private onThemeLoadComplete(): void {
+        //new EUITest();
+        //new ActTest();
+//        new ProtoBufTest();
+//        new StarlingSwfTest();
+
+        new CardMain();
+
     }
 
     /**
-     * 资源组加载出错
-     *  The resource group loading failed
+     * 初始化所有场景
      */
-    private onItemLoadError(event:RES.ResourceEvent):void {
-        console.warn("Url:" + event.resItem.url + " has failed to load");
+    private initScene():void{
+        App.SceneManager.register(SceneConsts.LOADING, new LoadingScene());
+        App.SceneManager.register(SceneConsts.Login, new LoginScene());
+        App.SceneManager.register(SceneConsts.Reg, new RegScene());
+//        App.SceneManager.register(SceneConsts.UI, new UIScene());
+//        App.SceneManager.register(SceneConsts.Game, new GameScene());
     }
 
     /**
-     * 资源组加载出错
-     *  The resource group loading failed
+     * 初始化所有模块
      */
-    private onResourceLoadError(event:RES.ResourceEvent):void {
-        //TODO
-        console.warn("Group:" + event.groupName + " has failed to load");
-        //忽略加载失败的项目
-        //Ignore the loading failed projects
-        this.onResourceLoadComplete(event);
+    private initModule():void{
+        App.ControllerManager.register(ControllerConst.Loading, new LoadingController());
+        App.ControllerManager.register(ControllerConst.Login, new LoginController());
+        App.ControllerManager.register(ControllerConst.Reg, new RegController());
     }
-
-    /**
-     * preload资源组加载进度
-     * Loading process of preload resource group
-     */
-    private onResourceProgress(event:RES.ResourceEvent):void {
-        if (event.groupName == "preload") {
-            this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
-        }
-    }
-
-    private textfield:egret.TextField;
-
-    /**
-     * 创建游戏场景
-     * Create a game scene
-     */
-    private createGameScene():void {
-        App.Init();
-
-//        this.addEventListener(egret.TouchEvent.TOUCH_TAP,function(){
-//            var msg:any = {};
-//            msg.key = "user_login_s2c";
-//            msg.body = {
-//                "flag" : 1
-//            };
-//            //msg.body = user_login;
-//            App.Socket.send(msg);
-//
-//        },this)
-
-//        var message = dcodeIO.ProtoBuf.loadProto(RES.getRes("msgData_proto"));
-//
-//        //创建user_login_class
-//        var u_login_class = message.build("u_login_c2s");
-//
-//        //创建一条消息
-//        var user_login = new u_login_class({
-//            "account" : "seethinks",
-//            "pass" : "123123123"
-//        });
-
-
-
-        //发送一条消息到服务器
-        function send():void{
-            var msg:any = {};
-            msg.key = "u_login_c2s";
-            msg.body = {
-                "account" : "seethinks",
-                "pass" : "123123123"
-            };
-            //msg.body = user_login;
-            App.Socket.send(msg);
-        }
-
-        App.Socket.connect();
-        App.MessageCenter.addListener(SocketConst.SOCKET_CONNECT, ()=>{
-            Log.trace("与服务器连接上");
-            send();
-        }, this);
-        App.MessageCenter.addListener(SocketConst.SOCKET_RECONNECT, ()=>{
-            Log.trace("与服务器重新连接上");
-            //send();
-        }, this);
-        App.MessageCenter.addListener(SocketConst.SOCKET_START_RECONNECT, ()=>{
-            Log.trace("开始与服务器重新连接");
-        }, this);
-        App.MessageCenter.addListener(SocketConst.SOCKET_CLOSE, ()=>{
-            Log.trace("与服务器断开连接");
-        }, this);
-        App.MessageCenter.addListener(SocketConst.SOCKET_NOCONNECT, ()=>{
-            Log.trace("服务器连接不上");
-        }, this);
-        App.MessageCenter.addListener("10005", function(msg):void{
-            Log.trace("收到服务器消息:", msg);
-            if(msg.flag == 1)
-            {
-                Log.trace("yes");
-            }else
-            {
-                Log.trace("no");
-            }
-        }, this);
-    }
-
-
-
 }
 
 

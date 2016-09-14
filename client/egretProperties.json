@@ -24,6 +24,9 @@
 		{
 			"name": "eui"
 		},
+        {
+            "name": "dragonBones"
+        },
 		{
 			"name": "socket"
 		},

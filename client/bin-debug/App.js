@@ -241,6 +241,16 @@ var App = (function () {
             return App._notificationCenter;
         }
     );
+    d(App, "DragonBonesFactory"
+        /**
+         * DragonBones工厂类
+         * @returns {any}
+         * @constructor
+         */
+        ,function () {
+            return DragonBonesFactory.getInstance();
+        }
+    );
     d(App, "DelayOptManager"
         /**
          * 分帧处理类

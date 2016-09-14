@@ -19,7 +19,7 @@ exports = module.exports = function () {
         {
             wsocket.s = s;
             s.on("message",function(msg){
-                console.log(msg)
+                //console.log(msg)
                 var msgId = msg.readInt16BE();
                 var protoClass = sysCtr.protoCtrl.protoRoot.build(sysCtr.protoCtrl.protoJson[msgId]);
                 var data = protoClass.decode(msg.slice(2, msg.length));
@@ -40,13 +40,14 @@ exports = module.exports = function () {
     wsServer.send = function(msgId,data)
     {
         if(!wsocket.s) return;
+        console.log("send data:",data);
+        var sd = data.encode().toBuffer();
         var bytes = new byteBufferClass().flip();
         bytes.writeUint16(msgId);
-        bytes.writeUint16(data.length);
-        bytes.append(data)
+        bytes.writeUint16(sd.length);
+        bytes.append(sd)
         bytes.flip();
         var sendData = bytes.toArrayBuffer();
-        console.log("Send Bytes Data ---> "+bytes)
         wsocket.s.send(sendData, { binary: true });
     }
 
