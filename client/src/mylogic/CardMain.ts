@@ -15,7 +15,7 @@ class CardMain{
     private onResourceLoadComplete():void {
         this.initModule();
         App.Init();
-        GameManager.getInstance().connectServer();
+        App.PFE.conncet();
         App.SceneManager.runScene(SceneConsts.Login);
         //音乐音效处理
         App.SoundManager.setBgOn(true);

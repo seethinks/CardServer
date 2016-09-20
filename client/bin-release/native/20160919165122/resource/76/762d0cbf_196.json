@@ -1,0 +1,8 @@
+{
+    "IsDebug":true,
+    "HttpServer":"http://www.baidu.com",
+    "SocketServer":"127.0.0.1",
+    "SocketPort":"3210",
+    "ProtoFile":"msgData_proto",
+    "ProtoConfig":"msgData_config"
+}

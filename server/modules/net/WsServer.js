@@ -9,7 +9,7 @@ exports = module.exports = function () {
 
     wsServer.setup = function()
     {
-        var port = process.env.PORT || 3008;  // systemCenter.configObj.dev.defaults.socket.port
+        var port = process.env.PORT || 3210;  // systemCenter.configObj.dev.defaults.socket.port
         var ws = require('ws');
         wsocket = new ws.Server({port: port}, function() {
             console.info('Server listening on port %d', port);

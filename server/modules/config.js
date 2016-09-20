@@ -27,8 +27,8 @@ var settings = {
                 password: ""
             },
             socket:{
-                host:"127.0.0.1",
-                prot:3008
+                host:"192.168.6.117",
+                prot:3210
             }
         },
         desc:'开发环境配置'
@@ -46,8 +46,8 @@ var settings = {
             password: ""
         },
         socket:{
-            host:"127.0.0.1",
-            prot:3008
+            host:"192.168.6.117",
+            prot:3210
         },
         desc: '网站发布地址配置'
     }

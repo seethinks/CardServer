@@ -1,0 +1,25 @@
+{
+    "groups":[
+        {
+            "keys":"global,msgData_proto,msgData_config",
+            "name":"preload_core"
+        }
+    ],
+    "resources":[
+        {
+            "name":"global",
+            "type":"json",
+            "url":"config/global.json"
+        },
+        {
+            "name":"msgData_proto",
+            "type":"text",
+            "url":"proto/msgData.proto"
+        },
+        {
+            "name":"msgData_config",
+            "type":"json",
+            "url":"proto/msgData.json"
+        }
+    ]
+}

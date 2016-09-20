@@ -1,0 +1,6 @@
+{
+    "connector.entryHandler.entry" : {
+        "required string account" : 1,
+        "required string pass" : 2
+    }
+}

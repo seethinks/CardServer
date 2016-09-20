@@ -23,6 +23,15 @@ var App = (function () {
             return Socket.getInstance();
         }
     );
+    d(App, "PFE"
+        /**
+         * Socket请求
+         * @type {null}
+         */
+        ,function () {
+            return PFEManager.getInstance();
+        }
+    );
     d(App, "ControllerManager"
         /**
          * 模块管理类
@@ -314,9 +323,9 @@ var App = (function () {
         //实例化Http请求
         App.Http.initServer(App.GlobalData.HttpServer);
         //实例化ProtoBuf和Socket请求
-        App.ProtoFile = dcodeIO.ProtoBuf.loadProto(RES.getRes(App.GlobalData.ProtoFile));
-        App.ProtoConfig = RES.getRes(App.GlobalData.ProtoConfig);
-        App.Socket.initServer(App.GlobalData.SocketServer, App.GlobalData.SocketPort, new ByteArrayMsgByProtobuf());
+        //        App.ProtoFile = dcodeIO.ProtoBuf.loadProto(RES.getRes(App.GlobalData.ProtoFile));
+        //       App.ProtoConfig = RES.getRes(App.GlobalData.ProtoConfig);
+        //App.Socket.initServer(App.GlobalData.SocketServer, App.GlobalData.SocketPort, new ByteArrayMsgByProtobuf());
     };
     /**
      * 请求服务器使用的用户标识

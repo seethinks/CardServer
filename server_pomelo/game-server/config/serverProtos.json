@@ -1,0 +1,6 @@
+{
+    "onEntry" : {
+        "required uInt32  res" : 1,
+        "required string  msg" : 2
+    }
+}

@@ -1,6 +1,7 @@
 {
 	"native": {
-		"path_ignore": []
+		"path_ignore": [],
+		"android_path": "../Android"
 	},
 	"publish": {
 		"web": 0,
@@ -24,9 +25,9 @@
 		{
 			"name": "eui"
 		},
-        {
-            "name": "dragonBones"
-        },
+		{
+			"name": "dragonBones"
+		},
 		{
 			"name": "socket"
 		},

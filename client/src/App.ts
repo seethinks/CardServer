@@ -40,6 +40,15 @@ class App {
     }
 
     /**
+     * Socket请求
+     * @type {null}
+     */
+    public static get PFE():PFEManager {
+        return PFEManager.getInstance();
+    }
+
+
+    /**
      * 模块管理类
      * @type {ControllerManager}
      */
@@ -303,8 +312,8 @@ class App {
         //实例化Http请求
         App.Http.initServer(App.GlobalData.HttpServer);
         //实例化ProtoBuf和Socket请求
-        App.ProtoFile = dcodeIO.ProtoBuf.loadProto(RES.getRes(App.GlobalData.ProtoFile));
-        App.ProtoConfig = RES.getRes(App.GlobalData.ProtoConfig);
-        App.Socket.initServer(App.GlobalData.SocketServer, App.GlobalData.SocketPort, new ByteArrayMsgByProtobuf());
+//        App.ProtoFile = dcodeIO.ProtoBuf.loadProto(RES.getRes(App.GlobalData.ProtoFile));
+//       App.ProtoConfig = RES.getRes(App.GlobalData.ProtoConfig);
+        //App.Socket.initServer(App.GlobalData.SocketServer, App.GlobalData.SocketPort, new ByteArrayMsgByProtobuf());
     }
 }

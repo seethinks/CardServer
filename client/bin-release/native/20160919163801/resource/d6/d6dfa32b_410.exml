@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="LoginUISkin" width="556" height="406" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:TextInput id="txtName" x="56" y="83"/>
+	<e:TextInput id="txtPass" x="56" y="196"/>
+	<e:Label text="登陆名" x="59" y="49"/>
+	<e:Label text="密码" x="60" y="141"/>
+	<e:Button id="btnLogin" label="登陆" x="254" y="298"/>
+	
+</e:Skin>
