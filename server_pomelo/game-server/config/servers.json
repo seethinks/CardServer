@@ -1,15 +1,12 @@
 {
-    "development":{
+    "development":
+    {
         "connector": [
             {"id": "connector-server-1", "host": "127.0.0.1", "port": 3150, "clientHost": "192.168.6.117", "clientPort": 3210, "frontend": true, "args": " --debug=5858"},
-            {"id": "connector-server-2", "host": "127.0.0.1", "port": 3151, "clientHost": "192.168.6.117", "clientPort": 3211, "frontend": true, "args": " --debug=5859"},
-            {"id": "connector-server-3", "host": "127.0.0.1", "port": 3152, "clientHost": "192.168.6.117", "clientPort": 3212, "frontend": true, "args": " --debug=5860"}
+            {"id": "connector-server-2", "host": "127.0.0.1", "port": 3151, "clientHost": "192.168.6.117", "clientPort": 3211, "frontend": true, "args": " --debug=5859"}
         ],
         "gate":[
             {"id": "gate-server-1", "host": "127.0.0.1", "clientPort": 3314, "frontend": true, "args": " --debug=5861"}
-        ],
-        "lobby":[
-            {"id": "lobby-server-1", "host": "127.0.0.1", "port": 3400, "args": " --debug=5862"}
         ],
         "auth": [
             {
@@ -18,27 +15,31 @@
                 "port": 3550,
                 "args": " --debug=5863"
             }
-        ]
-    },
-    "production":{
-        "connector": [
-            {"id": "connector-server-1", "host": "127.0.0.1", "port": 3150, "clientHost": "192.168.6.117", "clientPort": 3210, "frontend": true},
-            {"id": "connector-server-2", "host": "127.0.0.1", "port": 3151, "clientHost": "192.168.6.117", "clientPort": 3211, "frontend": true},
-            {"id": "connector-server-3", "host": "127.0.0.1", "port": 3152, "clientHost": "192.168.6.117", "clientPort": 3212, "frontend": true}
-        ],
-        "gate":[
-            {"id": "gate-server-1", "host": "127.0.0.1", "clientPort": 3314, "frontend": true, "args": " --debug=5861"}
         ],
         "lobby":[
             {"id": "lobby-server-1", "host": "127.0.0.1", "port": 3400, "args": " --debug=5862"}
+        ]
+    },
+
+    "production":
+    {
+        "connector": [
+            {"id": "connector-server-1", "host": "127.0.0.1", "port": 3150, "clientHost": "192.168.6.117", "clientPort": 3210, "frontend": true},
+            {"id": "connector-server-2", "host": "127.0.0.1", "port": 3151, "clientHost": "192.168.6.117", "clientPort": 3211, "frontend": true}
+        ],
+        "gate":[
+            {"id": "gate-server-1", "host": "127.0.0.1", "clientPort": 3314, "frontend": true, "args": " --debug=5861"}
         ],
         "auth": [
             {
                 "id": "auth-server-1",
                 "host": "127.0.0.1",
-                "port": 3550
-                , "args": " --debug=5863"
+                "port": 3550,
+                "args": " --debug=5863"
             }
+        ],
+        "lobby":[
+            {"id": "lobby-server-1", "host": "127.0.0.1", "port": 3400, "args": " --debug=5862"}
         ]
     }
 }

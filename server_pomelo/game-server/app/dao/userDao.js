@@ -2,6 +2,7 @@ var async = require('async');
 var userModel = require("../dao/models/User");
 var utils = require('../util/utils');
 var Code = require('../../../shared/code');
+var aes = require('../util/doAES');
 
 var userDao = module.exports;
 
@@ -45,16 +46,17 @@ userDao.Login = function (ua, pwd, cb) {
                     var tokenClass = require('../../../shared/token');
                     var timestamp = Date.now();
                     var token = tokenClass.create(ua,timestamp,pwd);
-                    var msg = {token:token,uid:doc._id};
+                    console.log("token:"+token," doc._id.toString:"+doc._id.toString());
+
+                    var tokenJm = aes.encryption(token,doc._id);
+                    var msg = {token:tokenJm,uid:doc._id};
+                    console.log(aes.decryption(tokenJm,doc._id));
                     utils.invokeCallback(cb, null, Code.OK,msg);
+
                 }
             }
         }
     })
 };
-
-
-
-
 
 

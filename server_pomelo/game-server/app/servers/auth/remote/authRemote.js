@@ -53,7 +53,6 @@ var checkExpire = function(token, expire) {
 		// negative expire means never expire
 		return true;
 	}
-
 	return (Date.now() - token.timestamp) < expire;
 };
 

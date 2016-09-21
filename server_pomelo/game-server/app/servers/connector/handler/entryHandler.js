@@ -27,7 +27,7 @@ Handler.prototype.login = function(msg, session, next) {
                 resData = rd
                 token = resData.token;
                 session.set('token', token);
-                session.set('uid', uid);
+                session.set('uid', resData.uid);
                 session.bind(token, cb);
             }
         ],
