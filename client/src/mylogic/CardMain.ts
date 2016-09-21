@@ -20,6 +20,35 @@ class CardMain{
         //音乐音效处理
         App.SoundManager.setBgOn(true);
         App.SoundManager.setEffectOn(true);
+
+        //let aa=function():void{
+        //    console.log("aa")
+        //    setTimeout(function():void
+        //    {
+        //        console.log(" sub aa")
+        //    },200)
+        //    tt.complate();
+        //}
+        //let bb=function():void{
+        //    console.log("bbb")
+        //    tt.complate();
+        //}
+        //let cc=function():void{
+        //    console.log("ccc")
+        //    tt.complate();
+        //}
+        //var tt:AllAsyncExecutor = new AllAsyncExecutor();
+        //tt.setCallBack(function():void
+        //{
+        //    console.log("end");
+        //},this)
+        //tt.regist(aa,this)
+        //tt.regist(bb,this)
+        //tt.regist(cc,this)
+        //
+        //tt.start();
+
+
     }
 
     /**

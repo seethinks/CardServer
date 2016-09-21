@@ -113,11 +113,20 @@ class PomeloForEgret  extends BaseClass{
                 return;
             }
         }
-        console.log("[Pomelo] connect to:",App.GlobalData.SocketServer, App.GlobalData.SocketPort);
+
         this.socket = new egret.WebSocket();
         this.socket.type = egret.WebSocket.TYPE_BINARY;
+        if(App.GlobalData.IsDebug)
+        {
+            this.socket.connect(App.GlobalData.DebugSocketServer, App.GlobalData.DebugSocketPort);
+            console.log("[Pomelo] connect to:",App.GlobalData.DebugSocketServer, App.GlobalData.DebugSocketPort);
+        }else
+        {
+            this.socket.connect(App.GlobalData.SocketServer, App.GlobalData.SocketPort);
+            console.log("[Pomelo] connect to:",App.GlobalData.SocketServer, App.GlobalData.SocketPort);
+        }
 
-        this.socket.connect(App.GlobalData.SocketServer, App.GlobalData.SocketPort);
+
         this.addEvents();
     }
 

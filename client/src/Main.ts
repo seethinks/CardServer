@@ -54,6 +54,7 @@ class Main extends egret.DisplayObjectContainer {
         //初始化Resource资源加载库
         //initiate Resource loading library
 
+
         if(App.DeviceUtils.IsPC){
             App.StageUtils.setScaleMode(egret.StageScaleMode.SHOW_ALL);
         }

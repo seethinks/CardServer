@@ -4,5 +4,9 @@
     "SocketServer":"192.168.6.117",
     "SocketPort":"3210",
     "ProtoFile":"msgData_proto",
-    "ProtoConfig":"msgData_config"
+    "ProtoConfig":"msgData_config",
+
+    "DebugHttpServer":"http://www.baidu.com",
+    "DebugSocketServer":"127.0.0.1",
+    "DebugSocketPort":"3210"
 }

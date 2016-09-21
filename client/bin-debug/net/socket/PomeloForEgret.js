@@ -81,10 +81,16 @@ var PomeloForEgret = (function (_super) {
                 return;
             }
         }
-        console.log("[Pomelo] connect to:", App.GlobalData.SocketServer, App.GlobalData.SocketPort);
         this.socket = new egret.WebSocket();
         this.socket.type = egret.WebSocket.TYPE_BINARY;
-        this.socket.connect(App.GlobalData.SocketServer, App.GlobalData.SocketPort);
+        if (App.GlobalData.IsDebug) {
+            this.socket.connect(App.GlobalData.DebugSocketServer, App.GlobalData.DebugSocketPort);
+            console.log("[Pomelo] connect to:", App.GlobalData.DebugSocketServer, App.GlobalData.DebugSocketPort);
+        }
+        else {
+            this.socket.connect(App.GlobalData.SocketServer, App.GlobalData.SocketPort);
+            console.log("[Pomelo] connect to:", App.GlobalData.SocketServer, App.GlobalData.SocketPort);
+        }
         this.addEvents();
     };
     /**

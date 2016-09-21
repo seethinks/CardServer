@@ -29,7 +29,8 @@ var LoginView = (function (_super) {
             "pass": encodeURIComponent(this.txtPass.text)
         };
         App.PFE.pomelo.request("connector.entryHandler.login", msg, function (res) {
-            console.log("res:" + res);
+            if (res.code == Code.OK) {
+            }
         });
         //        App.Socket.send(msg);
         // this.testConnection();

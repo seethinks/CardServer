@@ -17,6 +17,7 @@ var game_file_list = [
 	"bin-debug/adapter/ThemeAdapter.js",
 	"bin-debug/App.js",
 	"bin-debug/base/BaseClass.js",
+	"bin-debug/consts/Code.js",
 	"bin-debug/consts/Keyboard.js",
 	"bin-debug/display/BitmapNumber.js",
 	"bin-debug/display/HotspotBitmap.js",

@@ -304,6 +304,7 @@ class App {
     public static Init():void {
         //全局配置数据
         App.GlobalData = RES.getRes("global");
+
         //开启调试
         App.DebugUtils.isOpen(App.GlobalData.IsDebug);
         App.DebugUtils.setThreshold(5);
