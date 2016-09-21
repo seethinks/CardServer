@@ -6,6 +6,9 @@ var pomelo = require('pomelo');
 var app = pomelo.createApp();
 app.set('name', 'server_pomelo');
 
+var dbm = require("../game-server/app/dao/DbManager")();
+dbm.setup();
+
 // app configuration
 app.configure('production|development', 'connector', function(){
   app.set('connectorConfig',

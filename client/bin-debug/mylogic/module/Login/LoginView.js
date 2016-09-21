@@ -25,10 +25,10 @@ var LoginView = (function (_super) {
     p.loginClickHandler = function (e) {
         //发送一条消息到服务器
         var msg = {
-            "account": this.txtName.text,
-            "pass": this.txtPass.text
+            "account": encodeURIComponent(this.txtName.text),
+            "pass": encodeURIComponent(this.txtPass.text)
         };
-        App.PFE.pomelo.request("connector.entryHandler.entry", msg, function (res) {
+        App.PFE.pomelo.request("connector.entryHandler.login", msg, function (res) {
             console.log("res:" + res);
         });
         //        App.Socket.send(msg);

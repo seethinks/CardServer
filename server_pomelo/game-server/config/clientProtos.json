@@ -1,5 +1,5 @@
 {
-    "connector.entryHandler.entry" : {
+    "connector.entryHandler.login" : {
         "required string account" : 1,
         "required string pass" : 2
     }

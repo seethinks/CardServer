@@ -27,12 +27,13 @@ class EasyLoading extends BaseClass {
         this.uiImageContainer.y = this.content.height * 0.5;
         this.content.addChild(this.uiImageContainer);
 
+        var self = this;
         RES.getResByUrl("resource/assets/load_Reel.png", function(texture:egret.Texture):void{
             var img:egret.Bitmap = new egret.Bitmap();
             img.texture = texture;
             img.x = -img.width * 0.5;
             img.y = -img.height * 0.5;
-            this.uiImageContainer.addChild(img);
+            self.uiImageContainer.addChild(img);
         }, this, RES.ResourceItem.TYPE_IMAGE);
     }
 

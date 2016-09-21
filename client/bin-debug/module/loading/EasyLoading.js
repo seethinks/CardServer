@@ -21,12 +21,13 @@ var EasyLoading = (function (_super) {
         this.uiImageContainer.x = this.content.width * 0.5;
         this.uiImageContainer.y = this.content.height * 0.5;
         this.content.addChild(this.uiImageContainer);
+        var self = this;
         RES.getResByUrl("resource/assets/load_Reel.png", function (texture) {
             var img = new egret.Bitmap();
             img.texture = texture;
             img.x = -img.width * 0.5;
             img.y = -img.height * 0.5;
-            this.uiImageContainer.addChild(img);
+            self.uiImageContainer.addChild(img);
         }, this, RES.ResourceItem.TYPE_IMAGE);
     };
     p.showLoading = function () {

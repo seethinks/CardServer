@@ -1,29 +1,40 @@
+var Code = require('../../../../../shared/code');
+var async = require('async');
+
 module.exports = function(app) {
-  return new Handler(app);
+    return new Handler(app);
 };
 
 var Handler = function(app) {
-  this.app = app;
+    this.app = app;
 };
 
-/**
- * New client entry.
- *
- * @param  {Object}   msg     request message
- * @param  {Object}   session current session object
- * @param  {Function} next    next step callback
- * @return {Void}
- */
-Handler.prototype.entry = function(msg, session, next) {
-//    console.log(msg.key,msg.body.account,msg.body.pass)
-//    console.log(msg.body.account);
-      console.log(msg.account,msg.pass);
 
-    var param = {
-        res:1
-    };
-     next(null, {msg:param});
-
+Handler.prototype.login = function(msg, session, next) {
+    var self = this;
+    var uid, auth;
+    async.waterfall([
+            function(cb) {
+                // auth token
+                self.app.rpc.auth.authRemote.Login(session, msg.account, msg.pass, cb);
+            },
+            function(code, doc,  cb) {
+                if (code != Code.OK) {
+                    next(null, {code: code });
+                    return;
+                }
+                uid = doc._id;
+                session.set('authority', uid);
+                session.bind(uid, cb);
+            }
+        ],
+        function(err) {
+            if (err) {
+                next(err, {code: Code.FAIL});
+                return;
+            }
+            next(null, {code: Code.OK});
+        });
 };
 
 /**
@@ -35,11 +46,11 @@ Handler.prototype.entry = function(msg, session, next) {
  * @return {Void}
  */
 Handler.prototype.publish = function(msg, session, next) {
-	var result = {
-		topic: 'publish',
-		payload: JSON.stringify({code: 200, msg: 'publish message is ok.'})
-	};
-  next(null, result);
+    var result = {
+        topic: 'publish',
+        payload: JSON.stringify({code: 200, msg: 'publish message is ok.'})
+    };
+    next(null, result);
 };
 
 /**
@@ -51,9 +62,9 @@ Handler.prototype.publish = function(msg, session, next) {
  * @return {Void}
  */
 Handler.prototype.subscribe = function(msg, session, next) {
-	var result = {
-		topic: 'subscribe',
-		payload: JSON.stringify({code: 200, msg: 'subscribe message is ok.'})
-	};
-  next(null, result);
+    var result = {
+        topic: 'subscribe',
+        payload: JSON.stringify({code: 200, msg: 'subscribe message is ok.'})
+    };
+    next(null, result);
 };
