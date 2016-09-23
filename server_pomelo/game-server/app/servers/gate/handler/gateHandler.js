@@ -61,8 +61,7 @@ var handler = Handler.prototype;
  *
  */
 handler.queryEntry = function(msg, session, next) {
-    var uid = msg.uid;
-    console.log("queryEntry msg:"+msg);
+   var uid = msg.uid;
     if(!uid) {
         next(null, {code: Code.FAIL});
         return;
@@ -73,8 +72,7 @@ handler.queryEntry = function(msg, session, next) {
         next(null, {code: Code.GATE.FA_NO_SERVER_AVAILABLE});
         return;
     }
-    //var res = dispatch(uid, connectors);
-    var res = connectors[0];
+    var res = dispatch(uid, connectors);
     next(null, {code: Code.OK, host: res.clientHost, port: res.clientPort});
 };
 

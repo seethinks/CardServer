@@ -14,16 +14,17 @@ class PFEManager extends BaseClass
          */
         App.MessageCenter.addListener(SocketConst.SOCKET_GATE_CONNECT, ()=> {
             Log.trace("与Gate服务器连接上");
-            App.PFE.pomelo.request("gate.gateHandler.queryEntry",{uid:Math.round(Math.random()*55555)},function(res){
-                if(res.code == Code.OK )
-                {
-                    App.PFE.pomelo.disconnect();
-                    GlobalVar.ConnectServer = res.host;
-                    GlobalVar.ConnectPort = res.port;
-                    console.log(" GlobalVar.ConnectServer :"+ GlobalVar.ConnectServer ,"    GlobalVar.ConnectPort:"+  GlobalVar.ConnectPort)
-                    App.PFE.conncet(GlobalVar.ConnectServer,GlobalVar.ConnectPort);
-                }
-            });
+           egret.setTimeout(function(){
+               App.PFE.pomelo.request("gate.gateHandler.queryEntry",{uid:Math.round(Math.random()*55555)},function(res){
+                   if(res.code == Code.OK )
+                   {
+                       App.PFE.pomelo.disconnect();
+                       GlobalVar.ConnectServer = res.host;
+                       GlobalVar.ConnectPort = res.port;
+                       App.PFE.conncet(GlobalVar.ConnectServer,GlobalVar.ConnectPort);
+                   }
+               });
+           },this,100);
         }, this);
         if(App.GlobalData.IsDebug)
         {

@@ -8,20 +8,23 @@ var PFEManager = (function (_super) {
     }
     var d = __define,c=PFEManager,p=c.prototype;
     p.init = function () {
+        var _this = this;
         /**
          * 连接 gate服务器，做负载均衡
          */
         App.MessageCenter.addListener(SocketConst.SOCKET_GATE_CONNECT, function () {
             Log.trace("与Gate服务器连接上");
-            App.PFE.pomelo.request("gate.gateHandler.queryEntry", { uid: Math.round(Math.random() * 55555) }, function (res) {
-                if (res.code == Code.OK) {
-                    App.PFE.pomelo.disconnect();
-                    GlobalVar.ConnectServer = res.host;
-                    GlobalVar.ConnectPort = res.port;
-                    console.log(" GlobalVar.ConnectServer :" + GlobalVar.ConnectServer, "    GlobalVar.ConnectPort:" + GlobalVar.ConnectPort);
-                    App.PFE.conncet(GlobalVar.ConnectServer, GlobalVar.ConnectPort);
-                }
-            });
+            egret.setTimeout(function () {
+                App.PFE.pomelo.request("gate.gateHandler.queryEntry", { uid: Math.round(Math.random() * 55555) }, function (res) {
+                    if (res.code == Code.OK) {
+                        App.PFE.pomelo.disconnect();
+                        GlobalVar.ConnectServer = res.host;
+                        GlobalVar.ConnectPort = res.port;
+                        console.log(" GlobalVar.ConnectServer :" + GlobalVar.ConnectServer, "    GlobalVar.ConnectPort:" + GlobalVar.ConnectPort);
+                        App.PFE.conncet(GlobalVar.ConnectServer, GlobalVar.ConnectPort);
+                    }
+                });
+            }, _this, 200);
         }, this);
         if (App.GlobalData.IsDebug) {
             App.PFE.conncet(App.GlobalData.DebugSocketServer, App.GlobalData.DebugSocketPort, "gate");
