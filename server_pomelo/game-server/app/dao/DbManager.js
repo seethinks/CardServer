@@ -9,7 +9,7 @@ exports = module.exports = function () {
     dbManager.setup = function()
     {
         var recon =true;
-
+        mongoose.Promise = global.Promise;
         mongoose.connect(process.env.MONGO || 'mongodb://127.0.0.1/cardServer');
         var dbcon = mongoose.connection;
         dbcon.on('error',function(error){

@@ -13,6 +13,8 @@ class LoginView extends BaseEuiView {
     public txtName:eui.TextInput;
     public txtPass:eui.TextInput;
 
+    public btnReg:eui.Button;
+
     public initUI():void {
         super.initUI();
 //        App.MessageCenter.addListener("10005", function (msg):void {
@@ -27,9 +29,25 @@ class LoginView extends BaseEuiView {
 //        }, this);
 
         this.btnLogin.addEventListener(egret.TouchEvent.TOUCH_TAP, this.loginClickHandler, this);
+        this.btnReg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.regClickHandler, this);
+    }
+
+    public open():void
+    {
+        if(PlayerSystem.selfPlayerInfo.account != "") this.txtName.text = PlayerSystem.selfPlayerInfo.account;
+    }
+
+    private regClickHandler(e:egret.TouchEvent):void
+    {
+        App.SceneManager.runScene(SceneConsts.Reg)
     }
 
     private loginClickHandler(e:egret.TouchEvent):void {
+//        if(!App.PFE.pomelo.isConnecting)
+//        {
+//            App.PFE.init();
+//            return;
+//        }
         //发送一条消息到服务器
         var msg = {
             "account" : encodeURIComponent(this.txtName.text),
@@ -38,7 +56,10 @@ class LoginView extends BaseEuiView {
         App.PFE.pomelo.request("connector.entryHandler.login",msg,function(res){
             if(res.code == Code.OK )
             {
-
+                console.log("res.msg.token:"+res.msg.token);
+                PlayerSystem.selfPlayerInfo.userID = res.msg.uid;
+                PlayerSystem.selfPlayerInfo.sign = res.msg.token;
+                App.SceneManager.runScene(SceneConsts.GameMain);
             }
         });
 

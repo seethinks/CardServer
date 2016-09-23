@@ -8,14 +8,8 @@
  * D-Deo @ https://github.com/D-Deo/pomelo-flash-tcp.git
  * and yicaoyimu @ http://bbs.egret.com/forum.php?mod=viewthread&tid=2538&highlight=pomelo
  */
-
-class PomeloForEgret  extends BaseClass{
-    private _needReconnect:boolean = false;
-    private _maxReconnectCount = 10;
-    private _isConnecting:boolean;
-
-    private _reconnectCount:number = 0;
-    private _connectFlag:boolean;
+class PomeloForEgret
+{
 
     static DEBUG:boolean = true;
     static EVENT_IO_ERROR:string = "io-error";
@@ -56,8 +50,9 @@ class PomeloForEgret  extends BaseClass{
     private _package:IPackage;
     private _message:IMessage;
 
+    private _serverType:string="";
+
     constructor(){
-        super();
         if(!console.group){
             console.group = console.log;
             console.groupEnd = function(){console.log("----")};
@@ -103,41 +98,33 @@ class PomeloForEgret  extends BaseClass{
         this.handlers[Package.TYPE_KICK] = this.onKick;
     }
 
-    /**
-     * 开始Socket连接
-     */
-    public connect():void {
-        if (App.DeviceUtils.IsHtml5) {
-            if (!window["WebSocket"]) {
-                Log.trace("不支持WebSocket");
-                return;
-            }
-        }
+
+    public init(params,cb:Function,serverType:string):void{
+        this.initCallback = cb;
+        var host = params.host;
+        var port = params.port;
+        this._serverType = serverType;
+        //
+        //var url = 'ws://' + host;
+        //if(port) {
+        //    url +=  ':' + port;
+        //}
+
+        this.handshakeBuffer.user = params.user;
+        this.handshakeCallback = params.handshakeCallback;
+        this.initWebSocket(host,port, cb);
+    }
+    public initWebSocket(host,port,cb:Function):void{
+        console.log("[Pomelo] connect to:",host,port);
 
         this.socket = new egret.WebSocket();
         this.socket.type = egret.WebSocket.TYPE_BINARY;
-        if(App.GlobalData.IsDebug)
-        {
-            this.socket.connect(App.GlobalData.DebugSocketServer, App.GlobalData.DebugSocketPort);
-            console.log("[Pomelo] connect to:",App.GlobalData.DebugSocketServer, App.GlobalData.DebugSocketPort);
-        }else
-        {
-            this.socket.connect(App.GlobalData.SocketServer, App.GlobalData.SocketPort);
-            console.log("[Pomelo] connect to:",App.GlobalData.SocketServer, App.GlobalData.SocketPort);
-        }
 
-
-        this.addEvents();
-    }
-
-    /**
-     * 添加事件监听
-     */
-    private addEvents() {
         this.socket.addEventListener(egret.Event.CONNECT, this.onConnect, this);
         this.socket.addEventListener(egret.Event.CLOSE, this.onClose, this);
         this.socket.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onIOError, this);
         this.socket.addEventListener(egret.ProgressEvent.SOCKET_DATA, this.onMessage, this);
+        this.socket.connect(host,port);
     }
 
 
@@ -162,6 +149,7 @@ class PomeloForEgret  extends BaseClass{
         }
         var reqId = this.reqId;
 
+
         if(PomeloForEgret.DEBUG){
             console.group("REQUEST:");
             console.info("Route:",route);
@@ -170,7 +158,6 @@ class PomeloForEgret  extends BaseClass{
             console.groupEnd();
         }
 
-
         this.sendMessage(reqId, route, msg);
 
         this.callbacks[reqId] = cb;
@@ -178,10 +165,6 @@ class PomeloForEgret  extends BaseClass{
     }
 
     public notify(route:string, msg:any):void {
-        if(PomeloForEgret.DEBUG){
-            console.info("notify Route:",route);
-            console.log("notify Param:",msg);
-        }
         this.sendMessage(0, route, msg);
     }
 
@@ -202,74 +185,28 @@ class PomeloForEgret  extends BaseClass{
     }
 
     private onConnect(e:egret.Event):void {
-        console.log("[Pomelo] connect success",e);
+        console.log("[Pomelo] connect success "+ this._serverType,e);
         this.socket.writeBytes(this._package.encode(Package.TYPE_HANDSHAKE, Protocol.strencode(JSON.stringify(this.handshakeBuffer))));
         this.socket.flush();
-        this._reconnectCount = 0;
-
-        if (this._connectFlag) {
-            App.MessageCenter.dispatch(SocketConst.SOCKET_RECONNECT);
-        } else {
+        if(this._serverType == "gate")
+        {
+            App.MessageCenter.dispatch(SocketConst.SOCKET_GATE_CONNECT);
+        }else
+        {
             App.MessageCenter.dispatch(SocketConst.SOCKET_CONNECT);
         }
-
-        this._connectFlag = true;
-        this._isConnecting = true;
-    }
-    /**
-     * 移除事件监听
-     */
-    private removeEvents():void {
-        this.socket.removeEventListener(egret.ProgressEvent.SOCKET_DATA, this.onMessage, this);
-        this.socket.removeEventListener(egret.Event.CONNECT, this.onConnect, this);
-        this.socket.removeEventListener(egret.Event.CLOSE, this.onClose, this);
-        this.socket.removeEventListener(egret.IOErrorEvent.IO_ERROR, this.onIOError, this);
-    }
-    /**
-     * 关闭Socket连接
-     */
-    public close():void {
-        this.removeEvents();
-        this.socket.close();
-        this.socket = null;
-        this._isConnecting = false;
-        this._connectFlag = false;
     }
 
-    /**
-     * 重新连接
-     */
-    private reconnect():void {
-        this.close();
-        this._reconnectCount++;
-        if (this._reconnectCount < this._maxReconnectCount) {
-            this.connect();
-        } else {
-            this._reconnectCount = 0;
-            if (this._connectFlag) {
-                App.MessageCenter.dispatch(SocketConst.SOCKET_CLOSE);
-            } else {
-                App.MessageCenter.dispatch(SocketConst.SOCKET_NOCONNECT);
-            }
-        }
-    }
     private onClose(e:egret.Event):void {
-        if (this._needReconnect) {
-            this.reconnect();
-            App.MessageCenter.dispatch(SocketConst.SOCKET_START_RECONNECT);
-        } else {
-            App.MessageCenter.dispatch(SocketConst.SOCKET_CLOSE);
-        }
-        this._isConnecting = false;
+        console.error("[Pomelo] connect close:",e);
+        this.emit(PomeloForEgret.EVENT_CLOSE,e);
+        App.MessageCenter.dispatch(SocketConst.SOCKET_CLOSE);
     }
 
     private onIOError(e:egret.Event):void{
-        if (this._needReconnect) {
-            this.reconnect();
-        } else {
-            App.MessageCenter.dispatch(SocketConst.SOCKET_NOCONNECT);
-        }
-        this._isConnecting = false;
+        this.emit(PomeloForEgret.EVENT_IO_ERROR, e);
+        console.error('socket error: ', e);
+        App.MessageCenter.dispatch(SocketConst.SOCKET_IO_ERROR);
     }
 
     private onKick(event){
@@ -491,8 +428,6 @@ class PomeloForEgret  extends BaseClass{
 
         return this;
     }
-
-
 }
 
 class Package implements IPackage{
@@ -1008,5 +943,6 @@ interface IPackage{
 
     decode(buffer:egret.ByteArray):any
 }
+
 
 

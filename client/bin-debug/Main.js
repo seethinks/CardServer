@@ -98,6 +98,7 @@ var Main = (function (_super) {
         App.SceneManager.register(SceneConsts.LOADING, new LoadingScene());
         App.SceneManager.register(SceneConsts.Login, new LoginScene());
         App.SceneManager.register(SceneConsts.Reg, new RegScene());
+        App.SceneManager.register(SceneConsts.GameMain, new GameMainScene());
         //        App.SceneManager.register(SceneConsts.UI, new UIScene());
         //        App.SceneManager.register(SceneConsts.Game, new GameScene());
     };
@@ -105,9 +106,11 @@ var Main = (function (_super) {
      * 初始化所有模块
      */
     p.initModule = function () {
+        PlayerSystem.setup();
         App.ControllerManager.register(ControllerConst.Loading, new LoadingController());
         App.ControllerManager.register(ControllerConst.Login, new LoginController());
         App.ControllerManager.register(ControllerConst.Reg, new RegController());
+        App.ControllerManager.register(ControllerConst.GameMain, new GameMainController());
     };
     return Main;
 }(egret.DisplayObjectContainer));

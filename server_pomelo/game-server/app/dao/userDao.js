@@ -28,6 +28,36 @@ userDao.getUserInfo = function (ua, cb) {
 };
 
 
+userDao.Reg = function (ua, pwd, cb) {
+    var user = userModel.User;
+    var queryDoc = {account: ua};
+
+    user.count(queryDoc, function (err, doc) {
+        if (err) {
+            utils.invokeCallback(cb, null, Code.FAIL);
+        } else {
+            if (doc == 0) {
+                var userData = new user({
+                    account: ua,
+                    password: pwd,
+                    nickName: "",
+                    money: 1000
+                });
+                userData.save(function (err) {
+                    if (err) {
+                        utils.invokeCallback(cb, null, Code.FAIL);
+                    } else {
+                        utils.invokeCallback(cb, null, Code.OK);
+                    }
+                })
+            } else {
+                utils.invokeCallback(cb, null, Code.ENTRY.FA_REG_USER_ALREADY_EXIST);
+            }
+        }
+    })
+};
+
+
 userDao.Login = function (ua, pwd, cb) {
     var user = userModel.User;
     var queryDoc = {account: ua};
@@ -59,4 +89,6 @@ userDao.Login = function (ua, pwd, cb) {
     })
 };
 
-
+userDao.logout = function (uid, cb) {
+    utils.invokeCallback(cb, null, Code.OK);
+};

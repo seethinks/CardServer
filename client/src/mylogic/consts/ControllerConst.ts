@@ -12,5 +12,5 @@ enum ControllerConst{
     Factory,
     Task,
     Mail,
-    Game,
+    GameMain,
 }

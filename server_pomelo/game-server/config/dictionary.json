@@ -1,4 +1,5 @@
 [
     "onEntry",
-    "connector.entryHandler.login"
+    "connector.entryHandler.login",
+    "connector.entryHandler.reg"
 ]

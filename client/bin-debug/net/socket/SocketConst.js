@@ -11,6 +11,7 @@ var SocketConst = (function () {
      * @type {string}
      */
     SocketConst.SOCKET_CONNECT = "SOCKET_CONNECT";
+    SocketConst.SOCKET_GATE_CONNECT = "SOCKET_GATE_CONNECT";
     /**
      * Socket重新连接上
      * @type {string}
@@ -40,6 +41,7 @@ var SocketConst = (function () {
      * @type {string}
      */
     SocketConst.SOCKET_DEBUG_INFO = "SOCKET_DEBUG_INFO";
+    SocketConst.SOCKET_IO_ERROR = "SOCKET_IO_ERROR";
     return SocketConst;
 }());
 egret.registerClass(SocketConst,'SocketConst');

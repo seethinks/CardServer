@@ -8,6 +8,7 @@ class SocketConst {
      * @type {string}
      */
     public static SOCKET_CONNECT:string = "SOCKET_CONNECT";
+    public static SOCKET_GATE_CONNECT:string = "SOCKET_GATE_CONNECT";
     /**
      * Socket重新连接上
      * @type {string}
@@ -37,4 +38,6 @@ class SocketConst {
      * @type {string}
      */
     public static SOCKET_DEBUG_INFO:string = "SOCKET_DEBUG_INFO";
+
+    public static SOCKET_IO_ERROR:string = "SOCKET_IO_ERROR";
 }

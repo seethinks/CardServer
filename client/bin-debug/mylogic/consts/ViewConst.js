@@ -15,5 +15,6 @@ var ViewConst;
     ViewConst[ViewConst["Daily"] = 10009] = "Daily";
     ViewConst[ViewConst["Mail"] = 10010] = "Mail";
     ViewConst[ViewConst["Game"] = 20000] = "Game";
-    ViewConst[ViewConst["GameUI"] = 20001] = "GameUI";
+    ViewConst[ViewConst["GameMain"] = 20001] = "GameMain";
+    ViewConst[ViewConst["GameUI"] = 20002] = "GameUI";
 })(ViewConst || (ViewConst = {}));

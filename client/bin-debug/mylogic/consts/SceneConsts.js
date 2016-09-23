@@ -7,7 +7,7 @@ var SceneConsts;
      * Game场景
      * @type {number}
      */
-    SceneConsts[SceneConsts["Game"] = 1] = "Game";
+    SceneConsts[SceneConsts["GameMain"] = 1] = "GameMain";
     /**
      * 游戏场景
      * @type {number}

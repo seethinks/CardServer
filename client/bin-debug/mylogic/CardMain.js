@@ -15,7 +15,7 @@ var CardMain = (function () {
     p.onResourceLoadComplete = function () {
         this.initModule();
         App.Init();
-        App.PFE.conncet();
+        App.PFE.init();
         App.SceneManager.runScene(SceneConsts.Login);
         //音乐音效处理
         App.SoundManager.setBgOn(true);

@@ -21,8 +21,21 @@ var LoginView = (function (_super) {
         //            }
         //        }, this);
         this.btnLogin.addEventListener(egret.TouchEvent.TOUCH_TAP, this.loginClickHandler, this);
+        this.btnReg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.regClickHandler, this);
+    };
+    p.open = function () {
+        if (PlayerSystem.selfPlayerInfo.account != "")
+            this.txtName.text = PlayerSystem.selfPlayerInfo.account;
+    };
+    p.regClickHandler = function (e) {
+        App.SceneManager.runScene(SceneConsts.Reg);
     };
     p.loginClickHandler = function (e) {
+        //        if(!App.PFE.pomelo.isConnecting)
+        //        {
+        //            App.PFE.init();
+        //            return;
+        //        }
         //发送一条消息到服务器
         var msg = {
             "account": encodeURIComponent(this.txtName.text),
@@ -30,6 +43,10 @@ var LoginView = (function (_super) {
         };
         App.PFE.pomelo.request("connector.entryHandler.login", msg, function (res) {
             if (res.code == Code.OK) {
+                console.log("res.msg.token:" + res.msg.token);
+                PlayerSystem.selfPlayerInfo.userID = res.msg.uid;
+                PlayerSystem.selfPlayerInfo.sign = res.msg.token;
+                App.SceneManager.runScene(SceneConsts.GameMain);
             }
         });
         //        App.Socket.send(msg);

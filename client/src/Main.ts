@@ -111,6 +111,7 @@ class Main extends egret.DisplayObjectContainer {
         App.SceneManager.register(SceneConsts.LOADING, new LoadingScene());
         App.SceneManager.register(SceneConsts.Login, new LoginScene());
         App.SceneManager.register(SceneConsts.Reg, new RegScene());
+        App.SceneManager.register(SceneConsts.GameMain, new GameMainScene());
 //        App.SceneManager.register(SceneConsts.UI, new UIScene());
 //        App.SceneManager.register(SceneConsts.Game, new GameScene());
     }
@@ -119,9 +120,11 @@ class Main extends egret.DisplayObjectContainer {
      * 初始化所有模块
      */
     private initModule():void{
+        PlayerSystem.setup();
         App.ControllerManager.register(ControllerConst.Loading, new LoadingController());
         App.ControllerManager.register(ControllerConst.Login, new LoginController());
         App.ControllerManager.register(ControllerConst.Reg, new RegController());
+        App.ControllerManager.register(ControllerConst.GameMain, new GameMainController());
     }
 }
 

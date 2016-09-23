@@ -2,11 +2,11 @@
     "IsDebug":true,
     "HttpServer":"http://www.baidu.com",
     "SocketServer":"192.168.6.117",
-    "SocketPort":"3210",
+    "SocketPort":"3314",
     "ProtoFile":"msgData_proto",
     "ProtoConfig":"msgData_config",
 
     "DebugHttpServer":"http://www.baidu.com",
     "DebugSocketServer":"127.0.0.1",
-    "DebugSocketPort":"3210"
+    "DebugSocketPort":"3314"
 }

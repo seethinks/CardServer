@@ -6,7 +6,7 @@ enum SceneConsts{
      * Game场景
      * @type {number}
      */
-    Game = 1,
+    GameMain = 1,
 
     /**
      * 游戏场景

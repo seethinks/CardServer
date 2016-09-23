@@ -8,13 +8,8 @@
  * D-Deo @ https://github.com/D-Deo/pomelo-flash-tcp.git
  * and yicaoyimu @ http://bbs.egret.com/forum.php?mod=viewthread&tid=2538&highlight=pomelo
  */
-var PomeloForEgret = (function (_super) {
-    __extends(PomeloForEgret, _super);
+var PomeloForEgret = (function () {
     function PomeloForEgret() {
-        _super.call(this);
-        this._needReconnect = false;
-        this._maxReconnectCount = 10;
-        this._reconnectCount = 0;
         this.JS_WS_CLIENT_TYPE = 'js-websocket';
         this.JS_WS_CLIENT_VERSION = '0.0.5';
         this.RES_OK = 200;
@@ -35,6 +30,7 @@ var PomeloForEgret = (function (_super) {
         this.initCallback = null;
         this._callbacks = {};
         this.reqId = 0;
+        this._serverType = "";
         if (!console.group) {
             console.group = console.log;
             console.groupEnd = function () { console.log("----"); };
@@ -71,36 +67,29 @@ var PomeloForEgret = (function (_super) {
         this.handlers[Package.TYPE_KICK] = this.onKick;
     }
     var d = __define,c=PomeloForEgret,p=c.prototype;
-    /**
-     * 开始Socket连接
-     */
-    p.connect = function () {
-        if (App.DeviceUtils.IsHtml5) {
-            if (!window["WebSocket"]) {
-                Log.trace("不支持WebSocket");
-                return;
-            }
-        }
+    p.init = function (params, cb, serverType) {
+        this.initCallback = cb;
+        var host = params.host;
+        var port = params.port;
+        this._serverType = serverType;
+        //
+        //var url = 'ws://' + host;
+        //if(port) {
+        //    url +=  ':' + port;
+        //}
+        this.handshakeBuffer.user = params.user;
+        this.handshakeCallback = params.handshakeCallback;
+        this.initWebSocket(host, port, cb);
+    };
+    p.initWebSocket = function (host, port, cb) {
+        console.log("[Pomelo] connect to:", host, port);
         this.socket = new egret.WebSocket();
         this.socket.type = egret.WebSocket.TYPE_BINARY;
-        if (App.GlobalData.IsDebug) {
-            this.socket.connect(App.GlobalData.DebugSocketServer, App.GlobalData.DebugSocketPort);
-            console.log("[Pomelo] connect to:", App.GlobalData.DebugSocketServer, App.GlobalData.DebugSocketPort);
-        }
-        else {
-            this.socket.connect(App.GlobalData.SocketServer, App.GlobalData.SocketPort);
-            console.log("[Pomelo] connect to:", App.GlobalData.SocketServer, App.GlobalData.SocketPort);
-        }
-        this.addEvents();
-    };
-    /**
-     * 添加事件监听
-     */
-    p.addEvents = function () {
         this.socket.addEventListener(egret.Event.CONNECT, this.onConnect, this);
         this.socket.addEventListener(egret.Event.CLOSE, this.onClose, this);
         this.socket.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onIOError, this);
         this.socket.addEventListener(egret.ProgressEvent.SOCKET_DATA, this.onMessage, this);
+        this.socket.connect(host, port);
     };
     p.on = function (event, fn) {
         (this._callbacks[event] = this._callbacks[event] || []).push(fn);
@@ -134,10 +123,6 @@ var PomeloForEgret = (function (_super) {
         this.routeMap[reqId] = route;
     };
     p.notify = function (route, msg) {
-        if (PomeloForEgret.DEBUG) {
-            console.info("notify Route:", route);
-            console.log("notify Param:", msg);
-        }
         this.sendMessage(0, route, msg);
     };
     p.onMessage = function (event) {
@@ -152,75 +137,25 @@ var PomeloForEgret = (function (_super) {
         this.send(byte);
     };
     p.onConnect = function (e) {
-        console.log("[Pomelo] connect success", e);
+        console.log("[Pomelo] connect success " + this._serverType, e);
         this.socket.writeBytes(this._package.encode(Package.TYPE_HANDSHAKE, Protocol.strencode(JSON.stringify(this.handshakeBuffer))));
         this.socket.flush();
-        this._reconnectCount = 0;
-        if (this._connectFlag) {
-            App.MessageCenter.dispatch(SocketConst.SOCKET_RECONNECT);
+        if (this._serverType == "gate") {
+            App.MessageCenter.dispatch(SocketConst.SOCKET_GATE_CONNECT);
         }
         else {
             App.MessageCenter.dispatch(SocketConst.SOCKET_CONNECT);
         }
-        this._connectFlag = true;
-        this._isConnecting = true;
-    };
-    /**
-     * 移除事件监听
-     */
-    p.removeEvents = function () {
-        this.socket.removeEventListener(egret.ProgressEvent.SOCKET_DATA, this.onMessage, this);
-        this.socket.removeEventListener(egret.Event.CONNECT, this.onConnect, this);
-        this.socket.removeEventListener(egret.Event.CLOSE, this.onClose, this);
-        this.socket.removeEventListener(egret.IOErrorEvent.IO_ERROR, this.onIOError, this);
-    };
-    /**
-     * 关闭Socket连接
-     */
-    p.close = function () {
-        this.removeEvents();
-        this.socket.close();
-        this.socket = null;
-        this._isConnecting = false;
-        this._connectFlag = false;
-    };
-    /**
-     * 重新连接
-     */
-    p.reconnect = function () {
-        this.close();
-        this._reconnectCount++;
-        if (this._reconnectCount < this._maxReconnectCount) {
-            this.connect();
-        }
-        else {
-            this._reconnectCount = 0;
-            if (this._connectFlag) {
-                App.MessageCenter.dispatch(SocketConst.SOCKET_CLOSE);
-            }
-            else {
-                App.MessageCenter.dispatch(SocketConst.SOCKET_NOCONNECT);
-            }
-        }
     };
     p.onClose = function (e) {
-        if (this._needReconnect) {
-            this.reconnect();
-            App.MessageCenter.dispatch(SocketConst.SOCKET_START_RECONNECT);
-        }
-        else {
-            App.MessageCenter.dispatch(SocketConst.SOCKET_CLOSE);
-        }
-        this._isConnecting = false;
+        console.error("[Pomelo] connect close:", e);
+        this.emit(PomeloForEgret.EVENT_CLOSE, e);
+        App.MessageCenter.dispatch(SocketConst.SOCKET_CLOSE);
     };
     p.onIOError = function (e) {
-        if (this._needReconnect) {
-            this.reconnect();
-        }
-        else {
-            App.MessageCenter.dispatch(SocketConst.SOCKET_NOCONNECT);
-        }
-        this._isConnecting = false;
+        this.emit(PomeloForEgret.EVENT_IO_ERROR, e);
+        console.error('socket error: ', e);
+        App.MessageCenter.dispatch(SocketConst.SOCKET_IO_ERROR);
     };
     p.onKick = function (event) {
         this.emit(PomeloForEgret.EVENT_KICK, event);
@@ -423,7 +358,7 @@ var PomeloForEgret = (function (_super) {
     PomeloForEgret.EVENT_KICK = "onKick";
     PomeloForEgret.EVENT_HEART_BEAT_TIMEOUT = 'heartbeat timeout';
     return PomeloForEgret;
-}(BaseClass));
+}());
 egret.registerClass(PomeloForEgret,'PomeloForEgret');
 var Package = (function () {
     function Package() {

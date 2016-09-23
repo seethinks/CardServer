@@ -30,16 +30,18 @@ pro.auth = function(msg, callback) {
 
 };
 
-/**
- * Auth token and check whether expire.
- *
- * @param  {String}   token token string
- * @param  {Function} cb
- * @return {Void}
- */
+pro.Reg = function(ua, pwd, callback) {
+    userDao.Login(ua, pwd, callback);
+};
+
 pro.Login = function(ua, pwd, callback) {
     userDao.Login(ua, pwd, callback);
 };
+
+pro.userLeave = function(uid, callback) {
+    userDao.logout(uid, callback);
+};
+
 
 /**
  * Check the token whether expire.
@@ -63,6 +65,3 @@ pro.kickAllUser = function(callback) {
 };
 
 
-pro.userLeave = function(uid, callback) {
-
-};

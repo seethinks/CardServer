@@ -15,5 +15,6 @@ enum ViewConst{
     Mail,
 
     Game = 20000,
+    GameMain,
     GameUI,
 }
