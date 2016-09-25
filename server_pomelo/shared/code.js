@@ -22,6 +22,10 @@ module.exports = {
 		FA_UNKNOWN_CONNECTOR: 	3003, 
 		FA_USER_NOT_ONLINE: 	3004 
 	},
+
+	ZONE:{
+		FA_ALREADY_EXIST:4001
+	},
 	
 	UNIT_STATE:{
 		US_NORMAL: 				0,

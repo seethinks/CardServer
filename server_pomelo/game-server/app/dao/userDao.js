@@ -1,11 +1,13 @@
 var async = require('async');
 var userModel = require("../dao/models/User");
+var zoneModel = require("../dao/models/Zone");
 var utils = require('../util/utils');
 var Code = require('../../../shared/code');
 var aes = require('../util/doAES');
 
 var userDao = module.exports;
 
+// ----------------------------------------------------- have user
 /**
  * Get user Info by username.
  * @param {String} username
@@ -76,7 +78,6 @@ userDao.Login = function (ua, pwd, cb) {
                     var tokenClass = require('../../../shared/token');
                     var timestamp = Date.now();
                     var token = tokenClass.create(ua,timestamp,pwd);
-                    console.log("token:"+token," doc._id.toString:"+doc._id.toString());
 
                     var tokenJm = aes.encryption(token,doc._id);
                     var msg = {token:tokenJm,uid:doc._id};
@@ -92,3 +93,50 @@ userDao.Login = function (ua, pwd, cb) {
 userDao.logout = function (uid, cb) {
     utils.invokeCallback(cb, null, Code.OK);
 };
+
+
+// ------------------------------------------------------------------------ have room
+
+
+
+
+// ------------------------------------------------------------------------ have zone
+userDao.createZone = function()
+{
+    var zone = zoneModel.Zone;
+    var queryDoc = {id: 1000};
+
+    zone.count(queryDoc, function (err, doc) {
+        if (err) {
+            console.log("createZone fault.");
+        } else {
+            if (doc == 0) {
+                var zoneData = new zone({
+                    id: 1000,
+                    onlineCount: 0,
+                    name: "泰格星球"
+                });
+                zoneData.save(function (err) {
+                    if (err) {
+                        console.log("createZone fault.");
+                    } else {
+                        console.log("createZone success.");
+                    }
+                })
+            } else {
+                console.log("createZone fault with "+Code.ZONE.FA_ALREADY_EXIST);
+            }
+        }
+    })
+}
+
+userDao.updateZoneOnlineCount = function(type,id)
+{
+    var zone = zoneModel.Zone;
+    if(type == "enter")
+    {
+        zone.update({"id":id},{"onlineCount":200})
+    }
+
+}
+

@@ -1,7 +1,7 @@
 /**
  * Created by G510 on 2016/9/13.
  */
-
+var userDao = require('../../app/dao/userDao');
 exports = module.exports = function () {
     var dbManager = {};
     var mongoose = require('mongoose');
@@ -25,6 +25,8 @@ exports = module.exports = function () {
             console.log('mongo connection success open ->');
             //dbManager.emit("en_connected");
             recon =true;
+
+            createZone();
         });
         //监听关闭事件并重连
         dbcon.on('close',function(err){
@@ -42,6 +44,11 @@ exports = module.exports = function () {
 //                console.log('reConnect-***');
             };
             console.log('reConnect-end');
+        }
+
+        function createZone()
+        {
+            userDao.createZone();
         }
     }
     return dbManager;

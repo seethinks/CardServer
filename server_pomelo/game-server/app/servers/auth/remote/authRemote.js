@@ -31,7 +31,7 @@ pro.auth = function(msg, callback) {
 };
 
 pro.Reg = function(ua, pwd, callback) {
-    userDao.Login(ua, pwd, callback);
+    userDao.Reg(ua, pwd, callback);
 };
 
 pro.Login = function(ua, pwd, callback) {

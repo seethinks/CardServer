@@ -20,11 +20,10 @@ var PFEManager = (function (_super) {
                         App.PFE.pomelo.disconnect();
                         GlobalVar.ConnectServer = res.host;
                         GlobalVar.ConnectPort = res.port;
-                        console.log(" GlobalVar.ConnectServer :" + GlobalVar.ConnectServer, "    GlobalVar.ConnectPort:" + GlobalVar.ConnectPort);
                         App.PFE.conncet(GlobalVar.ConnectServer, GlobalVar.ConnectPort);
                     }
                 });
-            }, _this, 200);
+            }, _this, 100);
         }, this);
         if (App.GlobalData.IsDebug) {
             App.PFE.conncet(App.GlobalData.DebugSocketServer, App.GlobalData.DebugSocketPort, "gate");

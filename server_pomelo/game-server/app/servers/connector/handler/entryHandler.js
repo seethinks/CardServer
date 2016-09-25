@@ -92,6 +92,8 @@ var onPlayerLeave = function(app, session) {
 
 Handler.prototype.entry = function(msg, session, next)
 {
+    var zoneId = msg.zoneId;
+
 
 }
 
