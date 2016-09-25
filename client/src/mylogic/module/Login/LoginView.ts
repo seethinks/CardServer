@@ -53,15 +53,15 @@ class LoginView extends BaseEuiView {
             "account" : encodeURIComponent(this.txtName.text),
             "pass" : encodeURIComponent(this.txtPass.text)
         };
-        App.PFE.pomelo.request("connector.entryHandler.login",msg,function(res){
-            if(res.code == Code.OK )
-            {
-                console.log("res.msg.token:"+res.msg.token);
-                PlayerSystem.selfPlayerInfo.userID = res.msg.uid;
-                PlayerSystem.selfPlayerInfo.sign = res.msg.token;
-                App.SceneManager.runScene(SceneConsts.GameMain);
-            }
-        });
+        //App.PFE.pomelo.request("connector.entryHandler.login",msg,function(res){
+        //    if(res.code == Code.OK )
+        //    {
+        //        console.log("res.msg.token:"+res.msg.token);
+        //        PlayerSystem.selfPlayerInfo.userID = res.msg.uid;
+        //        PlayerSystem.selfPlayerInfo.sign = res.msg.token;
+        //        App.SceneManager.runScene(SceneConsts.GameMain);
+        //    }
+        //});
 
 //        App.Socket.send(msg);
         // this.testConnection();

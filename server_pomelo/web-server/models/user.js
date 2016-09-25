@@ -16,6 +16,7 @@
 var mongoose = require("mongoose");  //  顶会议用户组件
 var Schema = mongoose.Schema;    //  创建模型
 var userScheMa = new Schema({
+    account:{type: String, index: true},
     password:String,
     nickName:String,
     money:Number,

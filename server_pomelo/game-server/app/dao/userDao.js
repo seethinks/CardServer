@@ -30,65 +30,65 @@ userDao.getUserInfo = function (ua, cb) {
 };
 
 
-userDao.Reg = function (ua, pwd, cb) {
-    var user = userModel.User;
-    var queryDoc = {account: ua};
+//userDao.Reg = function (ua, pwd, cb) {
+//    var user = userModel.User;
+//    var queryDoc = {account: ua};
+//
+//    user.count(queryDoc, function (err, doc) {
+//        if (err) {
+//            utils.invokeCallback(cb, null, Code.FAIL);
+//        } else {
+//            if (doc == 0) {
+//                var userData = new user({
+//                    account: ua,
+//                    password: pwd,
+//                    nickName: "",
+//                    money: 1000
+//                });
+//                userData.save(function (err) {
+//                    if (err) {
+//                        utils.invokeCallback(cb, null, Code.FAIL);
+//                    } else {
+//                        utils.invokeCallback(cb, null, Code.OK);
+//                    }
+//                })
+//            } else {
+//                utils.invokeCallback(cb, null, Code.ENTRY.FA_REG_USER_ALREADY_EXIST);
+//            }
+//        }
+//    })
+//};
 
-    user.count(queryDoc, function (err, doc) {
-        if (err) {
-            utils.invokeCallback(cb, null, Code.FAIL);
-        } else {
-            if (doc == 0) {
-                var userData = new user({
-                    account: ua,
-                    password: pwd,
-                    nickName: "",
-                    money: 1000
-                });
-                userData.save(function (err) {
-                    if (err) {
-                        utils.invokeCallback(cb, null, Code.FAIL);
-                    } else {
-                        utils.invokeCallback(cb, null, Code.OK);
-                    }
-                })
-            } else {
-                utils.invokeCallback(cb, null, Code.ENTRY.FA_REG_USER_ALREADY_EXIST);
-            }
-        }
-    })
-};
 
-
-userDao.Login = function (ua, pwd, cb) {
-    var user = userModel.User;
-    var queryDoc = {account: ua};
-    user.findOne(queryDoc, function (err, doc) {
-        if (err) {
-            utils.invokeCallback(cb, null, err);
-        } else {
-            if (!doc) {
-                utils.invokeCallback(cb, null, Code.ENTRY.FA_USER_NOT_EXIST);
-            } else {
-                if(doc.password != pwd)
-                {
-                    utils.invokeCallback(cb, null, Code.ENTRY.FA_USER_PWD_ERROR);
-                }else
-                {
-                    var tokenClass = require('../../../shared/token');
-                    var timestamp = Date.now();
-                    var token = tokenClass.create(ua,timestamp,pwd);
-
-                    var tokenJm = aes.encryption(token,doc._id);
-                    var msg = {token:tokenJm,uid:doc._id};
-                    console.log(aes.decryption(tokenJm,doc._id));
-                    utils.invokeCallback(cb, null, Code.OK,msg);
-
-                }
-            }
-        }
-    })
-};
+//userDao.Login = function (ua, pwd, cb) {
+//    var user = userModel.User;
+//    var queryDoc = {account: ua};
+//    user.findOne(queryDoc, function (err, doc) {
+//        if (err) {
+//            utils.invokeCallback(cb, null, err);
+//        } else {
+//            if (!doc) {
+//                utils.invokeCallback(cb, null, Code.ENTRY.FA_USER_NOT_EXIST);
+//            } else {
+//                if(doc.password != pwd)
+//                {
+//                    utils.invokeCallback(cb, null, Code.ENTRY.FA_USER_PWD_ERROR);
+//                }else
+//                {
+//                    var tokenClass = require('../../../shared/token');
+//                    var timestamp = Date.now();
+//                    var token = tokenClass.create(ua,timestamp,pwd);
+//
+//                    var tokenJm = aes.encryption(token,doc._id);
+//                    var msg = {token:tokenJm,uid:doc._id};
+//                    console.log(aes.decryption(tokenJm,doc._id));
+//                    utils.invokeCallback(cb, null, Code.OK,msg);
+//
+//                }
+//            }
+//        }
+//    })
+//};
 
 userDao.logout = function (uid, cb) {
     utils.invokeCallback(cb, null, Code.OK);

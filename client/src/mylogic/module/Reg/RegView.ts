@@ -25,12 +25,12 @@ class RegView extends BaseEuiView{
             "pass" : encodeURIComponent(this.txtPass.text)
         };
 
-        App.PFE.pomelo.request("connector.entryHandler.reg",msg,function(res){
-            if(res.code == Code.OK )
-            {
-                PlayerSystem.selfPlayerInfo.account = msg.account;
-                App.SceneManager.runScene(SceneConsts.Login);
-            }
-        });
+        //App.PFE.pomelo.request("connector.entryHandler.reg",msg,function(res){
+        //    if(res.code == Code.OK )
+        //    {
+        //        PlayerSystem.selfPlayerInfo.account = msg.account;
+        //        App.SceneManager.runScene(SceneConsts.Login);
+        //    }
+        //});
     }
 }
