@@ -36,6 +36,9 @@ var Main = (function (_super) {
     function Main() {
         _super.call(this);
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
+        PlayerSystem.setup();
+        PlayerSystem.selfPlayerInfo.account = egret.getOption("account");
+        PlayerSystem.selfPlayerInfo.sign = egret.getOption("token");
     }
     var d = __define,c=Main,p=c.prototype;
     p.onAddToStage = function (event) {
@@ -106,7 +109,6 @@ var Main = (function (_super) {
      * 初始化所有模块
      */
     p.initModule = function () {
-        PlayerSystem.setup();
         App.ControllerManager.register(ControllerConst.Loading, new LoadingController());
         App.ControllerManager.register(ControllerConst.Login, new LoginController());
         App.ControllerManager.register(ControllerConst.Reg, new RegController());

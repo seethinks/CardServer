@@ -10,13 +10,13 @@ class GameMainView extends BaseSpriteView {
     public initUI():void
     {
         super.initUI();
-        var txt:egret.TextField = new egret.TextField();
-        txt.x = 200;
-        txt.y =200;
-        txt.size=69;
-        txt.text = PlayerSystem.selfPlayerInfo.sign;
-        this.addChild(txt);
-        console.log("txt.text :"+txt.text )
+//        var txt:egret.TextField = new egret.TextField();
+//        txt.x = 200;
+//        txt.y =200;
+//        txt.size=69;
+//        txt.text = PlayerSystem.selfPlayerInfo.sign;
+//        this.addChild(txt);
+//        console.log("txt.text :"+txt.text )
 
         var btn:egret.Sprite = new egret.Sprite();
         btn.touchEnabled = true;

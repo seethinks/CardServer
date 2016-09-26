@@ -6,11 +6,8 @@ enum ControllerConst{
     Login,
     Reg,
     Home,
-    Friend,
     Shop,
-    Warehouse,
-    Factory,
     Task,
     Mail,
-    GameMain,
+    GameMain
 }

@@ -17,4 +17,6 @@ enum ViewConst{
     Game = 20000,
     GameMain,
     GameUI,
+
+    Lobby = 30000,
 }

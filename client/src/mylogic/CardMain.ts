@@ -18,7 +18,14 @@ class CardMain{
 
         App.PFE.init();
 
-        App.SceneManager.runScene(SceneConsts.Login);
+        if(PlayerSystem.selfPlayerInfo.account &&PlayerSystem.selfPlayerInfo.account != "")
+        {
+            App.SceneManager.runScene(SceneConsts.GameMain);
+        }else
+        {
+            App.SceneManager.runScene(SceneConsts.Login);
+        }
+
         //音乐音效处理
         App.SoundManager.setBgOn(true);
         App.SoundManager.setEffectOn(true);

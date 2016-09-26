@@ -9,13 +9,13 @@ var GameMainView = (function (_super) {
     var d = __define,c=GameMainView,p=c.prototype;
     p.initUI = function () {
         _super.prototype.initUI.call(this);
-        var txt = new egret.TextField();
-        txt.x = 200;
-        txt.y = 200;
-        txt.size = 69;
-        txt.text = PlayerSystem.selfPlayerInfo.sign;
-        this.addChild(txt);
-        console.log("txt.text :" + txt.text);
+        //        var txt:egret.TextField = new egret.TextField();
+        //        txt.x = 200;
+        //        txt.y =200;
+        //        txt.size=69;
+        //        txt.text = PlayerSystem.selfPlayerInfo.sign;
+        //        this.addChild(txt);
+        //        console.log("txt.text :"+txt.text )
         var btn = new egret.Sprite();
         btn.touchEnabled = true;
         btn.graphics.beginFill(0x33ff33);

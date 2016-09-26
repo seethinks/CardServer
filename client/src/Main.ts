@@ -38,6 +38,10 @@ class Main extends egret.DisplayObjectContainer {
     public constructor() {
         super();
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
+        PlayerSystem.setup();
+        PlayerSystem.selfPlayerInfo.account = egret.getOption("account");
+        PlayerSystem.selfPlayerInfo.sign  = egret.getOption("token");
+
     }
 
     private onAddToStage(event:egret.Event) {
@@ -120,7 +124,6 @@ class Main extends egret.DisplayObjectContainer {
      * 初始化所有模块
      */
     private initModule():void{
-        PlayerSystem.setup();
         App.ControllerManager.register(ControllerConst.Loading, new LoadingController());
         App.ControllerManager.register(ControllerConst.Login, new LoginController());
         App.ControllerManager.register(ControllerConst.Reg, new RegController());

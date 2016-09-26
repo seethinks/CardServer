@@ -2,8 +2,8 @@
     "development":
     {
         "connector": [
-            {"id": "connector-server-1", "host": "127.0.0.1", "port": 3150, "clientHost": "172.20.10.9", "clientPort": 3210, "frontend": true, "args": " --debug=5858"},
-            {"id": "connector-server-2", "host": "127.0.0.1", "port": 3151, "clientHost": "172.20.10.9", "clientPort": 3211, "frontend": true, "args": " --debug=5859"}
+            {"id": "connector-server-1", "host": "127.0.0.1", "port": 3150, "clientHost": "192.168.6.117", "clientPort": 3210, "frontend": true, "args": " --debug=5858"},
+            {"id": "connector-server-2", "host": "127.0.0.1", "port": 3151, "clientHost": "192.168.6.117", "clientPort": 3211, "frontend": true, "args": " --debug=5859"}
         ],
         "gate":[
             {"id": "gate-server-1", "host": "127.0.0.1", "clientPort": 3314, "frontend": true, "args": " --debug=5861"}
