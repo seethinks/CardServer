@@ -4,7 +4,7 @@ class PlayerSystem {
      */
     private static _selfPlayerInfo:PlayerInfo;
 
-    private static _playerList:HashMap<number,PlayerInfo>;
+    private static _playerList:HashMap<string,PlayerInfo>;
 
     public constructor() {
     }
@@ -41,7 +41,7 @@ class PlayerSystem {
      * @return
      *
      */
-    public static getPlayerInfo(playerID:number = 0):PlayerInfo {
+    public static getPlayerInfo(playerID:string = ""):PlayerInfo {
         var info:PlayerInfo = this._playerList.get(playerID);
         return info ? info : this._selfPlayerInfo;
     }
@@ -71,7 +71,7 @@ class PlayerSystem {
     /**
      * 缓存用户信息列表
      */
-    public static get playerList():HashMap<number,PlayerInfo> {
+    public static get playerList():HashMap<string,PlayerInfo> {
         return this._playerList;
     }
 

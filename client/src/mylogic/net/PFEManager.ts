@@ -14,17 +14,17 @@ class PFEManager extends BaseClass
          */
         App.MessageCenter.addListener(SocketConst.SOCKET_GATE_CONNECT, ()=> {
             Log.trace("与Gate服务器连接上");
-           egret.setTimeout(function(){
-               App.PFE.pomelo.request("gate.gateHandler.queryEntry",{uid:Math.round(Math.random()*55555)},function(res){
-                   if(res.code == Code.OK )
-                   {
-                       App.PFE.pomelo.disconnect();
-                       GlobalVar.ConnectServer = res.host;
-                       GlobalVar.ConnectPort = res.port;
-                       App.PFE.conncet(GlobalVar.ConnectServer,GlobalVar.ConnectPort);
-                   }
-               });
-           },this,100);
+            egret.setTimeout(function(){
+                App.PFE.pomelo.request("gate.gateHandler.queryEntry",{uid:Math.round(Math.random()*55555)},function(res){
+                    if(res.code == Code.OK )
+                    {
+                        App.PFE.pomelo.disconnect();
+                        GlobalVar.ConnectServer = res.host;
+                        GlobalVar.ConnectPort = res.port;
+                        App.PFE.conncet(GlobalVar.ConnectServer,GlobalVar.ConnectPort);
+                    }
+                });
+            },this,100);
         }, this);
         if(App.GlobalData.IsDebug)
         {
@@ -44,26 +44,66 @@ class PFEManager extends BaseClass
         }
         this._server = server;
         this._port = port;
-        App.MessageCenter.addListener(SocketConst.SOCKET_CONNECT, ()=> {
-            Log.trace("与服务器连接上");
-        }, this);
-        App.MessageCenter.addListener(SocketConst.SOCKET_RECONNECT, ()=> {
-            Log.trace("与服务器重新连接上");
-            //send();
-        }, this);
-        App.MessageCenter.addListener(SocketConst.SOCKET_START_RECONNECT, ()=> {
-            Log.trace("开始与服务器重新连接");
-        }, this);
-        App.MessageCenter.addListener(SocketConst.SOCKET_CLOSE, ()=> {
-            Log.trace("与服务器断开连接");
-        }, this);
-        App.MessageCenter.addListener(SocketConst.SOCKET_NOCONNECT, ()=> {
-            Log.trace("服务器连接不上");
-        }, this);
+        App.MessageCenter.removeListener(SocketConst.SOCKET_CONNECT,this.socketConnectHandler, this);
+        App.MessageCenter.addListener(SocketConst.SOCKET_CONNECT,this.socketConnectHandler, this);
+
+        App.MessageCenter.removeListener(SocketConst.SOCKET_RECONNECT,this.socketReConnectHandler, this);
+        App.MessageCenter.addListener(SocketConst.SOCKET_RECONNECT,this.socketReConnectHandler, this);
+
+        App.MessageCenter.removeListener(SocketConst.SOCKET_START_RECONNECT,this.socketStartReconnectHandler, this);
+        App.MessageCenter.addListener(SocketConst.SOCKET_START_RECONNECT,this.socketStartReconnectHandler, this);
+
+        App.MessageCenter.removeListener(SocketConst.SOCKET_CLOSE,this.socketCloseHandler, this);
+        App.MessageCenter.addListener(SocketConst.SOCKET_CLOSE,this.socketCloseHandler, this);
+
+        App.MessageCenter.removeListener(SocketConst.SOCKET_NOCONNECT,this.socketNoConnectHandler, this);
+        App.MessageCenter.addListener(SocketConst.SOCKET_NOCONNECT,this.socketNoConnectHandler, this);
 
         this.pomelo = new PomeloForEgret();
         this.pomelo.init( {host:this._server, port:this._port,user:{}},function(){
 
         },serverType);
+    }
+
+    private socketConnectHandler(e:any):void
+    {
+        Log.trace("与服务器连接上");
+        egret.setTimeout(function(){
+            this.doLogin();
+        },this,100)
+    }
+
+    private socketReConnectHandler():void
+    {
+        Log.trace("与服务器重新连接上");
+    }
+    private socketStartReconnectHandler():void
+    {
+        Log.trace("开始与服务器重新连接");
+    }
+    private socketCloseHandler():void
+    {
+        Log.trace("与服务器断开连接");
+    }
+    private socketNoConnectHandler():void
+    {
+        Log.trace("服务器连接不上");
+    }
+
+
+    public doLogin():void
+    {
+        console.log("PlayerSystem.selfPlayerInfo.userID:"+PlayerSystem.selfPlayerInfo.userID);
+        var msg = {
+            "uid" : PlayerSystem.selfPlayerInfo.userID
+        };
+        App.EasyLoading.showLoading();
+        App.PFE.pomelo.request("connector.entryHandler.login",msg,function(res){
+            if(res.code == Code.OK )
+            {
+
+            }
+            App.EasyLoading.hideLoading();
+        });
     }
 }

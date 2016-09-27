@@ -1,5 +1,6 @@
 [
-    "onEntry",
     "connector.entryHandler.login",
-    "connector.entryHandler.reg"
+    "connector.entryHandler.reg",
+    "connector.entryHandler.entry",
+    "connector.entryHandler.enterZone"
 ]

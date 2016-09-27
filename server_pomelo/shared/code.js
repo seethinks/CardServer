@@ -24,7 +24,8 @@ module.exports = {
 	},
 
 	ZONE:{
-		FA_ALREADY_EXIST:4001
+		FA_ALREADY_EXIST:4001,
+        FA_NOT_EXIST:4002
 	},
 	
 	UNIT_STATE:{

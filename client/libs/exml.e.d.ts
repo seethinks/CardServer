@@ -54,6 +54,8 @@ declare class GuiScreenSkin extends eui.Skin{
 }
 declare class LoadingUISkin extends eui.Skin{
 }
+declare class LobbyUISkin extends eui.Skin{
+}
 declare class LoginUISkin extends eui.Skin{
 }
 declare class MenuButtonSkin extends eui.Skin{

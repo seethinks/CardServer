@@ -1,12 +1,13 @@
 var PlayerInfo = (function () {
     function PlayerInfo() {
         this._account = "";
-        this._userID = 0;
+        this._userID = "";
         this._levelID = 0;
         this._isGM = false;
         this._isZB = false;
         this._roleId = 0;
         this._chairNo = 0;
+        this._zoneID = 0;
     }
     var d = __define,c=PlayerInfo,p=c.prototype;
     d(p, "account"
@@ -43,6 +44,16 @@ var PlayerInfo = (function () {
             if (!value)
                 return;
             this._userID = value;
+        }
+    );
+    d(p, "zoneID"
+        ,function () {
+            return this._zoneID;
+        }
+        ,function (value) {
+            if (!value)
+                return;
+            this._zoneID = value;
         }
     );
     d(p, "playerName"

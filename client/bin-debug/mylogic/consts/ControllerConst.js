@@ -11,4 +11,5 @@ var ControllerConst;
     ControllerConst[ControllerConst["Task"] = 10005] = "Task";
     ControllerConst[ControllerConst["Mail"] = 10006] = "Mail";
     ControllerConst[ControllerConst["GameMain"] = 10007] = "GameMain";
+    ControllerConst[ControllerConst["Lobby"] = 10008] = "Lobby";
 })(ControllerConst || (ControllerConst = {}));

@@ -35,12 +35,11 @@ Handler.prototype.reg = function(msg, session, next) {
 
 Handler.prototype.login = function(msg, session, next) {
     var self = this;
-    var token;
     var resData;
     async.waterfall([
             function(cb) {
                 // auth token
-                self.app.rpc.auth.authRemote.Login(session, msg.account, msg.pass, cb);
+                self.app.rpc.auth.authRemote.Login(session, msg.uid, cb);
             },
             function(code, rd,  cb) {
                 if (code != Code.OK) {
@@ -49,11 +48,9 @@ Handler.prototype.login = function(msg, session, next) {
                 }
                 resData = rd
                 var sessionService = self.app.get('sessionService');
-                if(!sessionService.getByUid(resData.uid)) {
-                    token = resData.token;
-                    session.set('token', token);
-                    session.set('uid', resData.uid);
-                    session.bind(resData.uid, cb);
+                if(!session.get("uid")) {
+                    session.set('uid', msg.uid);
+                    session.bind(msg.uid, cb);
                     session.on('closed', onPlayerLeave.bind(null, self.app));
                     session.pushAll(cb);
                 }else
@@ -89,11 +86,18 @@ var onPlayerLeave = function(app, session) {
     });
 };
 
+// ------------------------------------------------------------------ Zone
 
-Handler.prototype.entry = function(msg, session, next)
+Handler.prototype.enterZone = function(msg, session, next)
 {
-    var zoneId = msg.zoneId;
-
-
+    var zoneID = msg.zoneID;
+    if(!session || !session.uid) {
+        return;
+    }
+    app.rpc.lobby.lobbyRemote.enterZone(zoneID, msg.uid, function(err) {
+        if (err != null) {
+            console.log(err);
+        }
+    });
 }
 

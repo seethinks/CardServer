@@ -42,25 +42,49 @@ var PFEManager = (function (_super) {
         }
         this._server = server;
         this._port = port;
-        App.MessageCenter.addListener(SocketConst.SOCKET_CONNECT, function () {
-            Log.trace("与服务器连接上");
-        }, this);
-        App.MessageCenter.addListener(SocketConst.SOCKET_RECONNECT, function () {
-            Log.trace("与服务器重新连接上");
-            //send();
-        }, this);
-        App.MessageCenter.addListener(SocketConst.SOCKET_START_RECONNECT, function () {
-            Log.trace("开始与服务器重新连接");
-        }, this);
-        App.MessageCenter.addListener(SocketConst.SOCKET_CLOSE, function () {
-            Log.trace("与服务器断开连接");
-        }, this);
-        App.MessageCenter.addListener(SocketConst.SOCKET_NOCONNECT, function () {
-            Log.trace("服务器连接不上");
-        }, this);
+        App.MessageCenter.removeListener(SocketConst.SOCKET_CONNECT, this.socketConnectHandler, this);
+        App.MessageCenter.addListener(SocketConst.SOCKET_CONNECT, this.socketConnectHandler, this);
+        App.MessageCenter.removeListener(SocketConst.SOCKET_RECONNECT, this.socketReConnectHandler, this);
+        App.MessageCenter.addListener(SocketConst.SOCKET_RECONNECT, this.socketReConnectHandler, this);
+        App.MessageCenter.removeListener(SocketConst.SOCKET_START_RECONNECT, this.socketStartReconnectHandler, this);
+        App.MessageCenter.addListener(SocketConst.SOCKET_START_RECONNECT, this.socketStartReconnectHandler, this);
+        App.MessageCenter.removeListener(SocketConst.SOCKET_CLOSE, this.socketCloseHandler, this);
+        App.MessageCenter.addListener(SocketConst.SOCKET_CLOSE, this.socketCloseHandler, this);
+        App.MessageCenter.removeListener(SocketConst.SOCKET_NOCONNECT, this.socketNoConnectHandler, this);
+        App.MessageCenter.addListener(SocketConst.SOCKET_NOCONNECT, this.socketNoConnectHandler, this);
         this.pomelo = new PomeloForEgret();
         this.pomelo.init({ host: this._server, port: this._port, user: {} }, function () {
         }, serverType);
+    };
+    p.socketConnectHandler = function (e) {
+        Log.trace("与服务器连接上");
+        egret.setTimeout(function () {
+            this.doLogin();
+        }, this, 100);
+    };
+    p.socketReConnectHandler = function () {
+        Log.trace("与服务器重新连接上");
+    };
+    p.socketStartReconnectHandler = function () {
+        Log.trace("开始与服务器重新连接");
+    };
+    p.socketCloseHandler = function () {
+        Log.trace("与服务器断开连接");
+    };
+    p.socketNoConnectHandler = function () {
+        Log.trace("服务器连接不上");
+    };
+    p.doLogin = function () {
+        console.log("PlayerSystem.selfPlayerInfo.userID:" + PlayerSystem.selfPlayerInfo.userID);
+        var msg = {
+            "uid": PlayerSystem.selfPlayerInfo.userID
+        };
+        App.EasyLoading.showLoading();
+        App.PFE.pomelo.request("connector.entryHandler.login", msg, function (res) {
+            if (res.code == Code.OK) {
+            }
+            App.EasyLoading.hideLoading();
+        });
     };
     return PFEManager;
 }(BaseClass));

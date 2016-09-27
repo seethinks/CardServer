@@ -37,19 +37,6 @@ var LoginView = (function (_super) {
         //            return;
         //        }
         //发送一条消息到服务器
-        var msg = {
-            "account": encodeURIComponent(this.txtName.text),
-            "pass": encodeURIComponent(this.txtPass.text)
-        };
-        //App.PFE.pomelo.request("connector.entryHandler.login",msg,function(res){
-        //    if(res.code == Code.OK )
-        //    {
-        //        console.log("res.msg.token:"+res.msg.token);
-        //        PlayerSystem.selfPlayerInfo.userID = res.msg.uid;
-        //        PlayerSystem.selfPlayerInfo.sign = res.msg.token;
-        //        App.SceneManager.runScene(SceneConsts.GameMain);
-        //    }
-        //});
         //        App.Socket.send(msg);
         // this.testConnection();
         //        var pomelo: Pomelo = new Pomelo();

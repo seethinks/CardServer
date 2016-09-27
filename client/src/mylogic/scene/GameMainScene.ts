@@ -17,10 +17,7 @@ class GameMainScene extends BaseScene{
         super.onEnter();
 
         this.addLayerAt(LayerManager.Game_Main, 0);
-
-        App.ViewManager.open(ViewConst.Lobby);
-        App.ViewManager.open(ViewConst.GameMain);
-
+        //App.ViewManager.open(ViewConst.Lobby);
     }
 
     /**

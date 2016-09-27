@@ -27,10 +27,7 @@ var UIScene = (function (_super) {
         rect.percentHeight = 100;
         rect.percentWidth = 100;
         LayerManager.UI_Main.addChild(rect);
-        //初始打开Home页面
-        App.ViewManager.open(ViewConst.Home);
-        //播放背景音乐
-        App.SoundManager.playBg("sound_bg");
+        App.ViewManager.open(ViewConst.Lobby);
     };
     /**
      * 退出Scene调用

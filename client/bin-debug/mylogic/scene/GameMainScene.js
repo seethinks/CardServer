@@ -17,8 +17,7 @@ var GameMainScene = (function (_super) {
     p.onEnter = function () {
         _super.prototype.onEnter.call(this);
         this.addLayerAt(LayerManager.Game_Main, 0);
-        App.ViewManager.open(ViewConst.Lobby);
-        App.ViewManager.open(ViewConst.GameMain);
+        //App.ViewManager.open(ViewConst.Lobby);
     };
     /**
      * 退出Scene调用

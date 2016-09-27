@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="LobbyUISkin" width="556" height="406" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Button id="btnLobby1" label="Lobby1" x="212" y="174"/>
+	<e:Button label="Lobby0" x="212" y="68" id="btnLobby0"/>
+	<e:Button label="Lobby2" x="212" y="278" id="btnLobby2"/>
+
+
+
+
+
+
+	
+</e:Skin>

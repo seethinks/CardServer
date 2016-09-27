@@ -39,6 +39,7 @@ var Main = (function (_super) {
         PlayerSystem.setup();
         PlayerSystem.selfPlayerInfo.account = egret.getOption("account");
         PlayerSystem.selfPlayerInfo.sign = egret.getOption("token");
+        PlayerSystem.selfPlayerInfo.userID = egret.getOption("uid");
     }
     var d = __define,c=Main,p=c.prototype;
     p.onAddToStage = function (event) {
@@ -99,6 +100,7 @@ var Main = (function (_super) {
      */
     p.initScene = function () {
         App.SceneManager.register(SceneConsts.LOADING, new LoadingScene());
+        App.SceneManager.register(SceneConsts.UI, new UIScene());
         App.SceneManager.register(SceneConsts.Login, new LoginScene());
         App.SceneManager.register(SceneConsts.Reg, new RegScene());
         App.SceneManager.register(SceneConsts.GameMain, new GameMainScene());
@@ -113,6 +115,7 @@ var Main = (function (_super) {
         App.ControllerManager.register(ControllerConst.Login, new LoginController());
         App.ControllerManager.register(ControllerConst.Reg, new RegController());
         App.ControllerManager.register(ControllerConst.GameMain, new GameMainController());
+        App.ControllerManager.register(ControllerConst.Lobby, new LobbyController());
     };
     return Main;
 }(egret.DisplayObjectContainer));

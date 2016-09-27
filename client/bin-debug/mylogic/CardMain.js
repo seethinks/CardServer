@@ -17,7 +17,8 @@ var CardMain = (function () {
         App.Init();
         App.PFE.init();
         if (PlayerSystem.selfPlayerInfo.account && PlayerSystem.selfPlayerInfo.account != "") {
-            App.SceneManager.runScene(SceneConsts.GameMain);
+            //App.SceneManager.runScene(SceneConsts.GameMain);
+            App.SceneManager.runScene(SceneConsts.UI);
         }
         else {
             App.SceneManager.runScene(SceneConsts.Login);

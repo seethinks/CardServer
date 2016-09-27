@@ -31,7 +31,7 @@ var PlayerSystem = (function () {
      *
      */
     PlayerSystem.getPlayerInfo = function (playerID) {
-        if (playerID === void 0) { playerID = 0; }
+        if (playerID === void 0) { playerID = ""; }
         var info = this._playerList.get(playerID);
         return info ? info : this._selfPlayerInfo;
     };

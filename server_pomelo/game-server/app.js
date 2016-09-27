@@ -27,7 +27,21 @@ app.configure('production|development', 'gate', function() {
             connector: pomelo.connectors.hybridconnector,
             useProtobuf: false
         });
+    dbm.dbcon.on("success",function(){
+        dbm.createZone();
+    })
 });
+
+//app.configure('production|development', 'lobby', function() {
+//    app.set('connectorConfig',
+//        {
+//            connector : pomelo.connectors.hybridconnector,
+//            useProtobuf: true
+//        });
+//    dbm.dbcon.on("success",function(){
+//        dbm.createZone();
+//    })
+//});
 
 // start app
 app.start();

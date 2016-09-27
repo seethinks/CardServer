@@ -1,17 +1,25 @@
 /**
  * Created by G510 on 2016/9/13.
  */
-var userDao = require('../../app/dao/userDao');
+var zoneDao = require('../../app/dao/zoneDao');
+var async = require('async');
+
 exports = module.exports = function () {
     var dbManager = {};
     var mongoose = require('mongoose');
+    dbcon = mongoose.connection;
+    dbManager.dbcon = dbcon;
+    var isSetup = false;
 
     dbManager.setup = function()
     {
+        if (isSetup) return;
+        isSetup = true;
         var recon =true;
         mongoose.Promise = global.Promise;
         mongoose.connect(process.env.MONGO || 'mongodb://127.0.0.1/cardServer');
-        var dbcon = mongoose.connection;
+
+
         dbcon.on('error',function(error){
             console.log('connection error');
             dbcon.close();
@@ -25,8 +33,7 @@ exports = module.exports = function () {
             console.log('mongo connection success open ->');
             //dbManager.emit("en_connected");
             recon =true;
-
-            createZone();
+            dbcon.emit("success")
         });
         //监听关闭事件并重连
         dbcon.on('close',function(err){
@@ -45,11 +52,31 @@ exports = module.exports = function () {
             };
             console.log('reConnect-end');
         }
-
-        function createZone()
-        {
-            userDao.createZone();
-        }
     }
+
+    dbManager.createZone = function()
+    {
+        async.series([
+            function (cb)
+            {
+                zoneDao.createZone(1000,cb);
+            },
+            function (cb)
+            {
+                zoneDao.createZone(1001,cb);
+            },
+            function (cb)
+            {
+                zoneDao.createZone(1002,cb);
+            }
+        ],function(err){
+            if (err) {
+                console.log("Create zone err:"+err);
+                return;
+            }
+            console.log("Create zone success.");
+        });
+    }
+
     return dbManager;
 }

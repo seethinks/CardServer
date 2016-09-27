@@ -1,5 +1,3 @@
-var async = require('async');
-var Code = require('../../../../../shared/code');
 var userDao = require('../../../dao/userDao');
 
 var DEFAULT_SECRET = 'pomelo_session_secret';
@@ -34,8 +32,8 @@ pro.Reg = function(ua, pwd, callback) {
     userDao.Reg(ua, pwd, callback);
 };
 
-pro.Login = function(ua, pwd, callback) {
-    userDao.Login(ua, pwd, callback);
+pro.Login = function(uid, callback) {
+    userDao.Login(uid, callback);
 };
 
 pro.userLeave = function(uid, callback) {

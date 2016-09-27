@@ -1,6 +1,6 @@
 class PlayerInfo {
     private _account:string = "";
-    private _userID:number = 0;
+    private _userID:string = "";
     private _playerName:string;  // 昵称
     private _levelName:string;
     private _levelID:number = 0;
@@ -15,6 +15,7 @@ class PlayerInfo {
     private _chairNo:number = 0;
     private _gameStatus:number;
 
+    private _zoneID:number = 0;
 
     public constructor() {
 
@@ -41,13 +42,22 @@ class PlayerInfo {
         return this._roleId;
     }
 
-    public set userID(value:number) {
+    public set userID(value:string) {
         if (!value) return;
         this._userID = value;
     }
 
-    public get userID():number {
+    public get userID():string {
         return this._userID;
+    }
+
+    public set zoneID(value:number) {
+        if (!value) return;
+        this._zoneID = value;
+    }
+
+    public get zoneID():number {
+        return this._zoneID;
     }
 
 

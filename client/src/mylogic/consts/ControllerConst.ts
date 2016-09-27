@@ -9,5 +9,6 @@ enum ControllerConst{
     Shop,
     Task,
     Mail,
-    GameMain
+    GameMain,
+    Lobby
 }

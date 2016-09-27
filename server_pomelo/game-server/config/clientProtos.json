@@ -4,7 +4,6 @@
         "required string pass" : 2
     },
     "connector.entryHandler.login" : {
-        "required string account" : 1,
-        "required string pass" : 2
+        "required string uid" : 1
     }
 }
