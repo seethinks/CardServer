@@ -29,6 +29,18 @@ app.configure('production|development', 'gate', function() {
         });
     dbm.dbcon.on("success",function(){
         dbm.createZone();
+    });
+    var redis = require("redis");
+    var client = redis.createClient();
+
+    client.on("error", function (err) {
+        console.log("Error " + err);
+    });
+    client.on('connect', function(){
+        console.log('Redis连接成功.');
+    })
+    client.on('end', function(){
+        console.log('Redis关闭.');
     })
 });
 

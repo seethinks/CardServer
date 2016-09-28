@@ -5,6 +5,9 @@ var Code = require('../../../shared/code');
 var aes = require('../util/doAES');
 var mongoose = require('mongoose');
 
+var redis = require("redis");
+var client = redis.createClient();
+
 var userDao = module.exports;
 
 // ----------------------------------------------------- have user
@@ -71,6 +74,7 @@ userDao.Login = function (uid, cb) {
                 utils.invokeCallback(cb, null, Code.ENTRY.FA_USER_NOT_EXIST);
             } else {
                 var msg = {data:doc};
+                client.set(uid,doc,redis.print);
                 utils.invokeCallback(cb, null, Code.OK,msg);
             }
         }

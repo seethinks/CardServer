@@ -2,12 +2,13 @@ var async = require('async');
 var zoneModel = require("../dao/models/Zone");
 var utils = require('../util/utils');
 var Code = require('../../../shared/code');
+var redis = require("redis");
+var client = redis.createClient();
 
-var userDao = module.exports;
-
+var zoneDao = module.exports;
 
 // ------------------------------------------------------------------------ have zone
-userDao.createZone = function(zid,cb)
+zoneDao.createZone = function(zid,cb)
 {
     var zone = zoneModel.Zone;
     var queryDoc = {id: zid};
@@ -39,29 +40,31 @@ userDao.createZone = function(zid,cb)
     })
 }
 
-userDao.enterZone = function(zoneID,uid, cb)
+zoneDao.enterZone = function(zoneID,uid, cb)
 {
     var zone = zoneModel.Zone;
-    var queryDoc = {id: zid};
-    zone.count(queryDoc, function (err, doc) {
-        if (err) {
-            console.log("enterZone err:"+err+"   zid:"+zid);
+    var queryDoc = {id: zoneID};
+    zone.update(queryDoc, {$addToSet: {"uidList": uid}}, function(err) {
+        if (err)
+        {
+            console.log("enter zone  add user err   zid:"+zid);
             utils.invokeCallback(cb, null, err);
-        } else {
-            if (doc == 0) {
-                console.log("this zone no exist:"+Code.ZONE.FA_NOT_EXIST+"   zid:"+zid);
-                utils.invokeCallback(cb, null, Code.ZONE.FA_NOT_EXIST);
-            }else
-            {
-                console.log("doc.id):"+doc.id);
-                utils.invokeCallback(cb, null, Code.OK);
-            }
+        }
+    });
+    zone.aggregate([{$match:{id:parseInt(zoneID)}},{$project: { zoneID: "$id",count: { $size:"$uidList" }}}],function(e,res){
+        if(e)
+        {
+            console.log("error:"+e);
+            utils.invokeCallback(cb, null, Code.FAIL);
+        }else
+        {
+            utils.invokeCallback(cb, null, Code.OK,res);
         }
     })
-    utils.invokeCallback(cb, null, Code.OK);
+
 }
 
-userDao.updateZoneOnlineCount = function(type,id)
+zoneDao.updateZoneOnlineCount = function(type,id)
 {
     var zone = zoneModel.Zone;
     if(type == "enter")

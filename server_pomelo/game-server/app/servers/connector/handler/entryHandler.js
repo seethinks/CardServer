@@ -94,10 +94,26 @@ Handler.prototype.enterZone = function(msg, session, next)
     if(!session || !session.uid) {
         return;
     }
-    app.rpc.lobby.lobbyRemote.enterZone(zoneID, msg.uid, function(err) {
-        if (err != null) {
-            console.log(err);
+    var self = this;
+    var resData;
+    async.waterfall([
+        function(cb) {
+            self.app.rpc.lobby.lobbyRemote.enterZone(session,zoneID, msg.uid,cb);
+        },
+        function(code, rd) {
+            if (code != Code.OK) {
+                next(null, {code: code});
+                return;
+            }
+            resData = rd;
+            next(null, {code: Code.OK,msg:resData});
         }
+    ], function(err) {
+        if (err) {
+            next(err, {code: Code.FAIL});
+            return;
+        }
+        next(null, {code: Code.OK,msg:resData});
     });
 }
 

@@ -12,9 +12,9 @@ var LobbyView = (function (_super) {
         _super.prototype.initUI.call(this);
         this.btnLobby0.name = "1000";
         this.btnLobby0.addEventListener(egret.TouchEvent.TOUCH_TAP, this.goLobbyHandler, this);
-        this.btnLobby0.name = "1001";
+        this.btnLobby1.name = "1001";
         this.btnLobby1.addEventListener(egret.TouchEvent.TOUCH_TAP, this.goLobbyHandler, this);
-        this.btnLobby0.name = "1002";
+        this.btnLobby2.name = "1002";
         this.btnLobby2.addEventListener(egret.TouchEvent.TOUCH_TAP, this.goLobbyHandler, this);
     };
     p.goLobbyHandler = function (e) {
