@@ -31,4 +31,5 @@ enum SceneConsts{
      * @type {number}
      */
     Reg,
+    Zone1,
 }

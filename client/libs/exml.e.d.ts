@@ -74,3 +74,5 @@ declare class TabBarSkin extends eui.Skin{
 }
 declare class TaskItemRendererSkin extends eui.Skin{
 }
+declare class Zone1UISkin extends eui.Skin{
+}

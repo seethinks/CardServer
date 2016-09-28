@@ -117,6 +117,7 @@ class Main extends egret.DisplayObjectContainer {
         App.SceneManager.register(SceneConsts.Login, new LoginScene());
         App.SceneManager.register(SceneConsts.Reg, new RegScene());
         App.SceneManager.register(SceneConsts.GameMain, new GameMainScene());
+        App.SceneManager.register(SceneConsts.Zone1, new Zone1Scene());
 //        App.SceneManager.register(SceneConsts.UI, new UIScene());
 //        App.SceneManager.register(SceneConsts.Game, new GameScene());
     }

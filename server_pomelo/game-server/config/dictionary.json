@@ -2,5 +2,6 @@
     "connector.entryHandler.login",
     "connector.entryHandler.reg",
     "connector.entryHandler.entry",
-    "connector.entryHandler.enterZone"
+    "connector.entryHandler.enterZone",
+    "connector.entryHandler.leaveZone"
 ]

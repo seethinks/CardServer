@@ -28,4 +28,5 @@ var SceneConsts;
      * @type {number}
      */
     SceneConsts[SceneConsts["Reg"] = 5] = "Reg";
+    SceneConsts[SceneConsts["Zone1"] = 6] = "Zone1";
 })(SceneConsts || (SceneConsts = {}));

@@ -27,7 +27,7 @@ class LobbyView extends BaseEuiView
     private goLobbyHandler(e:egret.TouchEvent):void
     {
         var zoneID:string = e.currentTarget.name;
-        if(PlayerSystem.selfPlayerInfo.zoneID != zoneID)
+        if(PlayerSystem.selfPlayerInfo.zoneID != parseInt(zoneID))
         {
             var msg = {
                 "zoneID" : zoneID,
@@ -38,7 +38,8 @@ class LobbyView extends BaseEuiView
                 if(res.code == Code.OK )
                 {
                     App.EasyLoading.hideLoading();
-                    PlayerSystem.selfPlayerInfo.zoneID = res.msg.zoneID;
+                    PlayerSystem.selfPlayerInfo.zoneID = res.msg[0].zoneID;
+                    App.SceneManager.runScene(SceneConsts.Zone1);
                 }
             });
         }

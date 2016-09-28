@@ -16,5 +16,9 @@ pro.enterZone = function(zoneID, uid, callback) {
     zoneDao.enterZone(zoneID, uid, callback);
 };
 
+pro.leaveZone = function(zoneID, uid, callback) {
+    zoneDao.leaveZone(zoneID, uid, callback);
+};
+
 
 

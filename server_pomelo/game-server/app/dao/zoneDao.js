@@ -61,8 +61,16 @@ zoneDao.enterZone = function(zoneID,uid, cb)
             utils.invokeCallback(cb, null, Code.OK,res);
         }
     })
-
 }
+
+zoneDao.leaveZone = function(zoneID,uid, cb)
+{
+    var zone = zoneModel.Zone;
+    var queryDoc = {id: zoneID};
+    utils.invokeCallback(cb, null, Code.OK);
+}
+
+
 
 zoneDao.updateZoneOnlineCount = function(type,id)
 {

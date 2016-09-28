@@ -117,3 +117,29 @@ Handler.prototype.enterZone = function(msg, session, next)
     });
 }
 
+Handler.prototype.leaveZone = function(msg, session, next)
+{
+    var zoneID = msg.zoneID;
+    if(!session || !session.uid) {
+        return;
+    }
+    var self = this;
+    async.waterfall([
+        function(cb) {
+            self.app.rpc.lobby.lobbyRemote.leaveZone(session,zoneID, msg.uid,cb);
+        },
+        function(code) {
+            if (code != Code.OK) {
+                next(null, {code: code});
+                return;
+            }
+            next(null, {code: Code.OK});
+        }
+    ], function(err) {
+        if (err) {
+            next(err, {code: Code.FAIL});
+            return;
+        }
+        next(null, {code: Code.OK});
+    });
+}

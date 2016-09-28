@@ -19,18 +19,20 @@ var LobbyView = (function (_super) {
     };
     p.goLobbyHandler = function (e) {
         var zoneID = e.currentTarget.name;
-        var msg = {
-            "zoneID": zoneID,
-            "uid": PlayerSystem.selfPlayerInfo.userID
-        };
-        App.PFE.pomelo.request("connector.entryHandler.enterZone", msg, function (res) {
-            App.EasyLoading.showLoading();
-            if (res.code == Code.OK) {
-                App.EasyLoading.hideLoading();
-                PlayerSystem.selfPlayerInfo.zoneID = res.msg.zoneID;
-                console.log(" PlayerSystem.selfPlayerInfo.zoneID:" + PlayerSystem.selfPlayerInfo.zoneID);
-            }
-        });
+        if (PlayerSystem.selfPlayerInfo.zoneID != parseInt(zoneID)) {
+            var msg = {
+                "zoneID": zoneID,
+                "uid": PlayerSystem.selfPlayerInfo.userID
+            };
+            App.PFE.pomelo.request("connector.entryHandler.enterZone", msg, function (res) {
+                App.EasyLoading.showLoading();
+                if (res.code == Code.OK) {
+                    App.EasyLoading.hideLoading();
+                    PlayerSystem.selfPlayerInfo.zoneID = res.msg[0].zoneID;
+                    App.SceneManager.runScene(SceneConsts.Zone1);
+                }
+            });
+        }
     };
     return LobbyView;
 }(BaseEuiView));

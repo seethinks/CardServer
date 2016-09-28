@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="Zone1UISkin" width="556" height="406" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Button id="btnLobby0" label="exit" x="208" y="203"/>
+
+
+
+
+
+
+	
+</e:Skin>

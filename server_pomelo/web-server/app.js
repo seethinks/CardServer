@@ -111,9 +111,9 @@ app.post('/main', function(req, res) {
 //                        data: profile,
 //                        token: tokenJm
 //                    });
-                    console.log("reg ok");
+                    console.log("login ok");
                     //res.render('main', { title: 'main' });
-                    res.redirect('http://192.168.6.117:3000/index.html?token='+tokenJm+"&account="+req.body.userid+"&uid="+doc._id.toString());
+                    res.redirect('http://localhost:3000/index.html?token='+tokenJm+"&account="+req.body.userid+"&uid="+doc._id.toString());
                 }
             }
         }
