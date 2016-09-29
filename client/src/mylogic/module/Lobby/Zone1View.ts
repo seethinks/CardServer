@@ -17,21 +17,18 @@ class Zone1View extends BaseEuiView
 
     private exitLobbyHandler(e:egret.TouchEvent):void
     {
-        var zoneID:string = e.currentTarget.name;
-        if(PlayerSystem.selfPlayerInfo.zoneID != parseInt(zoneID))
-        {
-            var msg = {
-                "zoneID" : PlayerSystem.selfPlayerInfo.zoneID,
-                "uid":PlayerSystem.selfPlayerInfo.userID
-            };
-            App.PFE.pomelo.request("connector.entryHandler.leaveZone",msg,function(res){
-                App.EasyLoading.showLoading();
-                if(res.code == Code.OK )
-                {
-                    App.EasyLoading.hideLoading();
-                    App.SceneManager.runScene(SceneConsts.UI);
-                }
-            });
-        }
+        var msg = {
+            "zoneID" : PlayerSystem.selfPlayerInfo.zoneID,
+            "uid":PlayerSystem.selfPlayerInfo.userID
+        };
+        App.PFE.pomelo.request("connector.entryHandler.leaveZone",msg,function(res){
+            App.EasyLoading.showLoading();
+            if(res.code == Code.OK )
+            {
+                PlayerSystem.selfPlayerInfo.zoneID = 0;
+                App.EasyLoading.hideLoading();
+                App.SceneManager.runScene(SceneConsts.UI);
+            }
+        });
     }
 }

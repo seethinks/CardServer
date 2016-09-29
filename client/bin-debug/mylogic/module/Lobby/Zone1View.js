@@ -13,20 +13,18 @@ var Zone1View = (function (_super) {
         this.btnLobby0.addEventListener(egret.TouchEvent.TOUCH_TAP, this.exitLobbyHandler, this);
     };
     p.exitLobbyHandler = function (e) {
-        var zoneID = e.currentTarget.name;
-        if (PlayerSystem.selfPlayerInfo.zoneID != parseInt(zoneID)) {
-            var msg = {
-                "zoneID": PlayerSystem.selfPlayerInfo.zoneID,
-                "uid": PlayerSystem.selfPlayerInfo.userID
-            };
-            App.PFE.pomelo.request("connector.entryHandler.leaveZone", msg, function (res) {
-                App.EasyLoading.showLoading();
-                if (res.code == Code.OK) {
-                    App.EasyLoading.hideLoading();
-                    App.SceneManager.runScene(SceneConsts.UI);
-                }
-            });
-        }
+        var msg = {
+            "zoneID": PlayerSystem.selfPlayerInfo.zoneID,
+            "uid": PlayerSystem.selfPlayerInfo.userID
+        };
+        App.PFE.pomelo.request("connector.entryHandler.leaveZone", msg, function (res) {
+            App.EasyLoading.showLoading();
+            if (res.code == Code.OK) {
+                PlayerSystem.selfPlayerInfo.zoneID = 0;
+                App.EasyLoading.hideLoading();
+                App.SceneManager.runScene(SceneConsts.UI);
+            }
+        });
     };
     return Zone1View;
 }(BaseEuiView));

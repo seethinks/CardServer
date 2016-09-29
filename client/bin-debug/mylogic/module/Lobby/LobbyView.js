@@ -19,7 +19,7 @@ var LobbyView = (function (_super) {
     };
     p.goLobbyHandler = function (e) {
         var zoneID = e.currentTarget.name;
-        if (PlayerSystem.selfPlayerInfo.zoneID != parseInt(zoneID)) {
+        if (PlayerSystem.selfPlayerInfo.zoneID != parseInt(zoneID) || PlayerSystem.selfPlayerInfo.zoneID == 0) {
             var msg = {
                 "zoneID": zoneID,
                 "uid": PlayerSystem.selfPlayerInfo.userID

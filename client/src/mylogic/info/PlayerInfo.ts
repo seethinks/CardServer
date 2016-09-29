@@ -52,7 +52,6 @@ class PlayerInfo {
     }
 
     public set zoneID(value:number) {
-        if (!value) return;
         this._zoneID = value;
     }
 

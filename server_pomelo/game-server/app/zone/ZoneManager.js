@@ -28,7 +28,6 @@ exports = module.exports = function () {
 
     zoneManager.updateZoneOnlineCount = function(type,id)
     {
-            userDao.updateZoneOnlineCount(type,id)
     }
 
     return zoneManager;

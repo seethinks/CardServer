@@ -27,7 +27,7 @@ class LobbyView extends BaseEuiView
     private goLobbyHandler(e:egret.TouchEvent):void
     {
         var zoneID:string = e.currentTarget.name;
-        if(PlayerSystem.selfPlayerInfo.zoneID != parseInt(zoneID))
+        if(PlayerSystem.selfPlayerInfo.zoneID != parseInt(zoneID) || PlayerSystem.selfPlayerInfo.zoneID ==0)
         {
             var msg = {
                 "zoneID" : zoneID,

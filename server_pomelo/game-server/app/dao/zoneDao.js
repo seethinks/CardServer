@@ -43,8 +43,9 @@ zoneDao.createZone = function(zid,cb)
 zoneDao.enterZone = function(zoneID,uid, cb)
 {
     var zone = zoneModel.Zone;
-    var queryDoc = {id: zoneID};
-    zone.update(queryDoc, {$addToSet: {"uidList": uid}}, function(err) {
+    var queryDoc = {id: parseInt(zoneID)};
+    zone.update(queryDoc,{$inc:{onlineCount:1}})
+    zone.update(queryDoc, {$addToSet: {uidList: uid}}, function(err) {
         if (err)
         {
             console.log("enter zone  add user err   zid:"+zid);
@@ -66,19 +67,27 @@ zoneDao.enterZone = function(zoneID,uid, cb)
 zoneDao.leaveZone = function(zoneID,uid, cb)
 {
     var zone = zoneModel.Zone;
-    var queryDoc = {id: zoneID};
-    utils.invokeCallback(cb, null, Code.OK);
+    var queryDoc = {id: parseInt(zoneID)};
+    zone.update(queryDoc,
+        { $pull: { uidList :uid } }
+        ,function(e){
+            if(e) {
+                console.log("err:" + e);
+                utils.invokeCallback(cb, null, Code.FAIL);
+            }else
+            {
+                utils.invokeCallback(cb, null, Code.OK);
+            }
+        });
+    zone.update(queryDoc,{$inc:{onlineCount:-1}})
 }
 
 
 
-zoneDao.updateZoneOnlineCount = function(type,id)
+
+zoneDao.updateZoneOnlineCount = function(type,zoneID)
 {
-    var zone = zoneModel.Zone;
-    if(type == "enter")
-    {
-        zone.update({"id":id},{"onlineCount":200})
-    }
+
 
 }
 

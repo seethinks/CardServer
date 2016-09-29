@@ -51,8 +51,6 @@ var PlayerInfo = (function () {
             return this._zoneID;
         }
         ,function (value) {
-            if (!value)
-                return;
             this._zoneID = value;
         }
     );

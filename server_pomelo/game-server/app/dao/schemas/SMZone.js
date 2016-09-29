@@ -5,10 +5,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var zone = new Schema({
-    id:{type: Number, index: true},
+    id:{type: Number, index: true,unique: true},
     onlineCount:Number,
     name:String,
-    uidList: [{type:String}]
+    uidList: [{type:String,unique: true}]
 });
 
 
