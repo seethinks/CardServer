@@ -72,7 +72,7 @@ handler.queryEntry = function(msg, session, next) {
         next(null, {code: Code.GATE.FA_NO_SERVER_AVAILABLE});
         return;
     }
-    var res = dispatch(uid, connectors);
+    var res = dispatch(1000, connectors);  //     var res = dispatch(uid, connectors);
     next(null, {code: Code.OK, host: res.clientHost, port: res.clientPort});
 };
 

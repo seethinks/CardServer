@@ -77,11 +77,9 @@ var onPlayerLeave = function(app, session) {
     if(!session || !session.uid) {
         return;
     }
-    console.log('user leave: ' + session.uid);
-
     app.rpc.auth.authRemote.userLeave(session, session.uid, function(err) {
         if (err != null) {
-            console.log(err);
+            console.log("leave error:"+err);
         }
     });
 };
@@ -106,6 +104,9 @@ Handler.prototype.enterZone = function(msg, session, next)
                 return;
             }
             resData = rd;
+            session.set("zoneID",zoneID);
+
+            console.log("enterZone zone session:"+session.get("zoneID"));
             next(null, {code: Code.OK,msg:resData});
         }
     ], function(err) {
@@ -113,6 +114,7 @@ Handler.prototype.enterZone = function(msg, session, next)
             next(err, {code: Code.FAIL});
             return;
         }
+        session.set("zoneID",zoneID);
         next(null, {code: Code.OK,msg:resData});
     });
 }
@@ -120,7 +122,11 @@ Handler.prototype.enterZone = function(msg, session, next)
 Handler.prototype.leaveZone = function(msg, session, next)
 {
     var zoneID = msg.zoneID;
+    console.log("leave zone session:"+session.get("zoneID"));
     if(!session || !session.uid) {
+        return;
+    }
+    if(!zoneID) {
         return;
     }
     var self = this;

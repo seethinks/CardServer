@@ -9,6 +9,7 @@ var users = new Schema({
     password:String,
     nickName:String,
     money:Number,
+    zoneID:Number,
     create_date:{type:Date,default:Date.now()}
 });
 

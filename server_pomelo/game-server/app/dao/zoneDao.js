@@ -66,6 +66,7 @@ zoneDao.enterZone = function(zoneID,uid, cb)
 
 zoneDao.leaveZone = function(zoneID,uid, cb)
 {
+    console.log("zoneID:"+zoneID);
     var zone = zoneModel.Zone;
     var queryDoc = {id: parseInt(zoneID)};
     zone.update(queryDoc,

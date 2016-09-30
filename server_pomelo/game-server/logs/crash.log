@@ -13,3 +13,5 @@
 [2016-09-29 15:46:47.025] [INFO] crash-log - [32m[E:\CardServer_local\CardServer\server_pomelo\game-server\node_modules\pomelo\lib\master\master.js] [39m[lobby],[lobby-server-1],[1475135207025],[disconnect]
 [2016-09-29 15:46:47.027] [INFO] crash-log - [32m[E:\CardServer_local\CardServer\server_pomelo\game-server\node_modules\pomelo\lib\master\master.js] [39m[gate],[gate-server-1],[1475135207027],[disconnect]
 [2016-09-29 15:46:47.053] [INFO] crash-log - [32m[E:\CardServer_local\CardServer\server_pomelo\game-server\node_modules\pomelo\lib\master\master.js] [39m[master],[master-server-1],[1475135207053],[disconnect]
+[2016-09-30 11:12:58.920] [INFO] crash-log - [32m[E:\CardServer_local\CardServer\server_pomelo\game-server\node_modules\pomelo\lib\master\master.js] [39m[connector],[connector-server-2],[1475205178920],[disconnect]
+[2016-09-30 11:23:16.188] [INFO] crash-log - [32m[E:\CardServer_local\CardServer\server_pomelo\game-server\node_modules\pomelo\lib\master\master.js] [39m[connector],[connector-server-1],[1475205796188],[disconnect]
